@@ -4,10 +4,18 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
+    "build:prod": "ng build fsms-angular-pubsub --prod",
+    "test": "ng test fsms-angular-pubsub --watch=false",
+    "test:watch": "ng test fsms-angular-pubsub",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "clean": "rimraf dist",
+    "build:dist": "npm run clean && npm run build:prod && npm run copyfiles",
+    "copyfiles": "",
+    "release:git": "git add . package.json yarn.lock && git commit -m \"chore: bump version number\" && standard-version --release-as patch && git push --follow-tags origin master",
+    "release:npm": "npm run build:dist && npm publish dist",
+    "release": "npm run release:git && npm run release:npm",
+    "postinstall": "ngcc"
   },
   "private": true,
   "dependencies": {
@@ -27,9 +35,9 @@
     "@angular-devkit/build-angular": "~0.1002.0",
     "@angular/cli": "~10.2.0",
     "@angular/compiler-cli": "~10.2.0",
-    "@types/node": "^12.11.1",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
@@ -38,7 +46,9 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "ng-packagr": "^10.1.0",
     "protractor": "~7.0.0",
+    "standard-version": "^9.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~4.0.2"

@@ -119,6 +119,50 @@
           }
         }
       }
-    }},
-  "defaultProject": "fsms-angular-pubsub-ws"
+    },
+    "fsms-angular-pubsub": {
+      "projectType": "library",
+      "root": "projects/fsms-angular-pubsub",
+      "sourceRoot": "projects/fsms-angular-pubsub/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/fsms-angular-pubsub/tsconfig.lib.json",
+            "project": "projects/fsms-angular-pubsub/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/fsms-angular-pubsub/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/fsms-angular-pubsub/src/test.ts",
+            "tsConfig": "projects/fsms-angular-pubsub/tsconfig.spec.json",
+            "karmaConfig": "projects/fsms-angular-pubsub/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/fsms-angular-pubsub/tsconfig.lib.json",
+              "projects/fsms-angular-pubsub/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "fsms-angular-pubsub-ws",
+  "cli": {
+    "analytics": false
+  }
 }
