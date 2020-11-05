@@ -1,27 +1,63 @@
-# FsmsAngularPubsubWs
+# Angular Pub/Sub Framework for Angular versions
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.0.
+Angular publish subscribe framework powered by RxJX.
 
-## Development server
+## Usage
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- Run below to install
 
-## Code scaffolding
+```
+npm i -S fsms-angular-pubsub
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Initialize module for root in your angular root module
 
-## Build
+```ts
+...
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+import { PubSubModule } from 'fsms-angular-pubsub'; // <= HERE
 
-## Running unit tests
+@NgModule({
+declarations: [
+   RootComponent,
+   NavigationComponent,
+   OverlayComponent
+],
+imports: [
+   BrowserModule,
+   FormsModule,
+   HttpModule,
+   PubSubModule.forRoot() // <= AND HERE
+],
+providers: [],
+bootstrap: [RootComponent]
+})
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+...
+```
 
-## Running end-to-end tests
+- Import & Inject `PubSubService` service where ever you want to use.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+### Subscribe
 
-## Further help
+```ts
+import { PubSubService } from './pubsub.service';
+...
+constructor(private messageService: PubSubService) { }
+...
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+messageService.subscribe({
+        message: { type: 'orderready' },
+        callback: () => console.log('happy'),
+      });
+```
+### Publish
+
+```ts
+import { PubSubService } from './pubsub.service';
+...
+constructor(private messageService: PubSubService) { }
+...
+
+messageService.publish(message: { type: 'orderready' });
+```

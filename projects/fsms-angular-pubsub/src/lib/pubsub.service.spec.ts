@@ -42,7 +42,7 @@ describe('PubSubService', () => {
       service.clearAllSubscriptions();
       service.subscribe({
         message: { type: 'orderready' },
-        callback: () => 'order2',
+        callback: () => console.log('happy'),
       });
       service.subscribe({
         message: { type: 'orderready' },
