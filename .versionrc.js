@@ -1,7 +1,7 @@
 module.exports = {
   bumpFiles: [
     {
-      filename: "./src/package.json",
+      filename: "./projects/fsms-angular-pubsub/package.json",
       type: "json",
     },
     {
