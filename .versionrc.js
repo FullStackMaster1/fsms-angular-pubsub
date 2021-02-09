@@ -1,11 +1,11 @@
 const tracker = [
   {
     filename: "src/package.json",
-    updater: require("standard-version-updater"),
+    updater: require("standard-version"),
   },
   {
     filename: "package.json",
-    updater: require("standard-version-updater"),
+    updater: require("standard-version"),
   },
 ];
 
