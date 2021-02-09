@@ -32,6 +32,18 @@ jobs:
         run: npm ci
       - name: Test
         run: npm run test:ci
+
+      - name: generate tag and release body
+        run: |
+          git config user.name rupeshtiwari
+          git config user.email roopkt@gmail.com
+          npx standard-version --release-as patch --skip.commit
+      - name: publish tag
+        id: publish_tag
+        run: |
+          git push --follow-tags origin main
+          echo ::set-output name=tag_name::$(git describe HEAD --abbrev=0)
+
       - name: Build & Publish
         run: npm run release
       - name: Archive build
@@ -46,16 +58,14 @@ jobs:
         with:
           name: deploy_coverage
           path: coverage
-      - name: Get tag
-        id: tag
-        uses: dawidd6/action-get-tag@v1
+
       - name: Read Tag Name
-        run: echo Git Tag Name is ${{ steps.tagName.outputs.tag }}
+        run: echo Git Tag Name is ${{ steps.publish_tag.outputs.tag_name }}
       - name: Create release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
-          release_name: Release ${{ steps.tagName.outputs.tag }}
-          tag_name: ${{ steps.tagName.outputs.tag }}
+          release_name: Release ${{ steps.publish_tag.outputs.tag_name }}
+          tag_name: ${{ steps.publish_tag.outputs.tag_name }}
           body_path: CHANGELOG.md
