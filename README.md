@@ -1,4 +1,4 @@
-![example workflow file path](https://github.com/actions/fsms-angular-pubsub/workflows/.github/workflows/main.yml/badge.svg)
+![example workflow file path](https://github.com/rupeshtiwari/fsms-angular-pubsub/workflows/.github/workflows/main.yml/badge.svg)
 
 # Angular Pub/Sub Framework for Angular versions
 
