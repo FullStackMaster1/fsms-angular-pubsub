@@ -48,8 +48,14 @@ jobs:
       - name: Read Tag Name
         run: echo Git Tag Name is ${{ steps.publish_tag.outputs.tag_name }}
 
-      - name: Build & Publish
-        run: npm run release:npm
+      - name: Build
+        run: npm run build:ci
+
+      - run: npm publish --access public
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        working-directory: dis/fsms-angular-pubsub
+
       - name: Archive build
         if: success()
         uses: actions/upload-artifact@v1
