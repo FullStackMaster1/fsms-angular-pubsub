@@ -47,14 +47,15 @@ jobs:
           name: deploy_coverage
           path: coverage
       - name: Set Tag Name
-        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+        uses: olegtarasov/get-tag@v2.1
+        id: tagName
       - name: Read Tag Name
-        run: echo Git Tag Name is ${{ env.RELEASE_VERSION }}
+        run: echo Git Tag Name is ${{ steps.tagName.outputs.tag }}
       - name: Create release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
-          release_name: Release ${{ env.RELEASE_VERSION }}
-          tag_name: ${{ env.RELEASE_VERSION }}
+          release_name: Release ${{ steps.tagName.outputs.tag }}
+          tag_name: ${{ steps.tagName.outputs.tag }}
           body_path: CHANGELOG.md
