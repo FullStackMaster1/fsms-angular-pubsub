@@ -3,7 +3,7 @@
   "version": "0.0.5",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve -o",
     "build:prod": "ng build fsms-angular-pubsub --prod",
     "test": "ng test fsms-angular-pubsub --watch=false --browsers=ChromeHeadless --code-coverage=true",
     "test:watch": "ng test fsms-angular-pubsub",
