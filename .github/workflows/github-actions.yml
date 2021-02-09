@@ -46,8 +46,10 @@ jobs:
         with:
           name: deploy_coverage
           path: coverage
-      - name: Git Tag Name
+      - name: Set Tag Name
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Read Tag Name
+        run: echo Git Tag Name is ${{ env.RELEASE_VERSION }}
       - name: Create release
         uses: actions/create-release@v1
         env:
