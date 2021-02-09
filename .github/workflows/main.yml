@@ -39,7 +39,7 @@ jobs:
           git config user.email roopkt@gmail.com
           npx standard-version --release-as patch --skip.commit
 
-      - name: publish tag
+      - name: Publish Tag
         id: publish_tag
         run: |
           git push --follow-tags origin main
@@ -54,7 +54,7 @@ jobs:
       - run: NPM Publish
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        working-directory: dis/fsms-angular-pubsub
+        working-directory: dist/fsms-angular-pubsub
 
       - name: Archive build
         if: success()
