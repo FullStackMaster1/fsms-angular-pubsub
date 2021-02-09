@@ -46,9 +46,9 @@ jobs:
         with:
           name: deploy_coverage
           path: coverage
-      - name: Set Tag Name
-        uses: olegtarasov/get-tag@v2.1
-        id: tagName
+      - name: Get tag
+        id: tag
+        uses: dawidd6/action-get-tag@v1
       - name: Read Tag Name
         run: echo Git Tag Name is ${{ steps.tagName.outputs.tag }}
       - name: Create release

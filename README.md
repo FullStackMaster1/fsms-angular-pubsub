@@ -1,3 +1,5 @@
+![Build Status](https://github.com/actions/fsms-angular-pubsub/workflows/build/badge.svg))
+
 # Angular Pub/Sub Framework for Angular versions
 
 Angular publish subscribe framework powered by RxJX.
