@@ -55,4 +55,4 @@ jobs:
         with:
           release_name: Release ${{ env.RELEASE_VERSION }}
           tag_name: ${{ env.RELEASE_VERSION }}
-          body_path: CHANGELOG.md.md
+          body_path: CHANGELOG.md
