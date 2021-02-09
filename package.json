@@ -1,6 +1,6 @@
 {
   "name": "@fsms/angular-pubsub-app",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -12,7 +12,7 @@
     "build:ci": "npm run clean && npm run build:prod && npm run copyfiles",
     "test:ci": "ng test fsms-angular-pubsub --watch=false --browsers=ChromeHeadless --code-coverage=true",
     "copyfiles": "copyfiles -f README.md dist/fsms-angular-pubsub",
-    "release:git": "standard-version --release-as patch -i RELEASE_BODY.md && git add . package.json && git commit -m \"chore: bump version number\" && git push --follow-tags origin main",
+    "release:git": "standard-version --release-as patch && git add . package.json && git commit -m \"chore: bump version number\" && git push --follow-tags origin main",
     "release:npm": "npm run build:ci && npm publish dist/fsms-angular-pubsub",
     "release": "npm run release:git && npm run release:npm",
     "postinstall": "ngcc"
