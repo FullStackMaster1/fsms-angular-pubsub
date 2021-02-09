@@ -1,0 +1,19 @@
+{
+  "name": "fsms-angular-pubsub",
+  "version": "0.0.5",
+  "peerDependencies": {
+    "@angular/common": "^10.2.0",
+    "@angular/core": "^10.2.0"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
+  "main": "bundles/fsms-angular-pubsub.umd.js",
+  "module": "fesm2015/fsms-angular-pubsub.js",
+  "es2015": "fesm2015/fsms-angular-pubsub.js",
+  "esm2015": "esm2015/fsms-angular-pubsub.js",
+  "fesm2015": "fesm2015/fsms-angular-pubsub.js",
+  "typings": "fsms-angular-pubsub.d.ts",
+  "metadata": "fsms-angular-pubsub.metadata.json",
+  "sideEffects": false
+}
