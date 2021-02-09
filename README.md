@@ -1,4 +1,6 @@
-[![Actions Status](https://github.com/rupeshtiwari/fsms-angular-pubsub/workflows/.github/workflows/main.yml/badge.svg)](https://github.com/{rupeshtiwari}/{fsms-angular-pubsub}/actions)
+ 
+
+[![Actions Status](https://github.com/rupeshtiwari/fsms-angular-pubsub/workflows/build/badge.svg)](https://github.com/rupeshtiwari/fsms-angular-pubsub/actions)
 
 # Angular Pub/Sub Framework for Angular versions
 
