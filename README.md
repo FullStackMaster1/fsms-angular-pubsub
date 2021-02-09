@@ -62,11 +62,11 @@ constructor(private messageService: PubSubService) { }
 messageService.publish(message: { type: 'orderready' });
 ```
 
----
+### Thank You!
 
-### Contact Me!
+**💖 Say 👋 to me!**
 Rupesh Tiwari
-info@rupeshtiwari.com
-www.rupeshtiwari.com
-I tech at www.fullstackmastter.net 
+<a href="https://www.rupeshtiwari.com"> www.rupeshtiwari.com</a> 
+✉️ <a href="mailto:fullstackmaster1@gmail.com?subject=Hi"> Email Rupesh</a>
+Founder of <a href="https://www.fullstackmaster.net"> Fullstack Master</a>
 

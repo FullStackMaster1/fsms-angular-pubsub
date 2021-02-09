@@ -1,5 +1,5 @@
 {
-  "name": "fsms-angular-pubsub-ws",
+  "name": "@fsms/angular-pubsub-app",
   "version": "1.0.4",
   "scripts": {
     "ng": "ng",
