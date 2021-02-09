@@ -38,11 +38,15 @@ jobs:
           git config user.name rupeshtiwari
           git config user.email roopkt@gmail.com
           npx standard-version --release-as patch --skip.commit
+
       - name: publish tag
         id: publish_tag
         run: |
           git push --follow-tags origin main
           echo ::set-output name=tag_name::$(git describe HEAD --abbrev=0)
+
+      - name: Read Tag Name
+        run: echo Git Tag Name is ${{ steps.publish_tag.outputs.tag_name }}
 
       - name: Build & Publish
         run: npm run release:npm
@@ -59,9 +63,9 @@ jobs:
           name: deploy_coverage
           path: coverage
 
-      - name: Read Tag Name
-        run: echo Git Tag Name is ${{ steps.publish_tag.outputs.tag_name }}
+
       - name: Create release
+        if: success()
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
