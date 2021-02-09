@@ -33,7 +33,7 @@ jobs:
       - name: Test
         run: npm run test:ci
 
-      - name: generate tag and release body
+      - name: Generate tag and ChangeLog
         run: |
           git config user.name rupeshtiwari
           git config user.email roopkt@gmail.com
@@ -51,7 +51,7 @@ jobs:
       - name: Build
         run: npm run build:ci
 
-      - run: npm publish --access public
+      - run: NPM Publish
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         working-directory: dis/fsms-angular-pubsub
@@ -62,13 +62,13 @@ jobs:
         with:
           name: deploy_dist
           path: dist
+
       - name: Archive code coverage result
         if: success()
         uses: actions/upload-artifact@v1
         with:
           name: deploy_coverage
           path: coverage
-
 
       - name: Create release
         if: success()
