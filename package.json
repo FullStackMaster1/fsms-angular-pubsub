@@ -1,6 +1,6 @@
 {
   "name": "@fsms/angular-pubsub-app",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -11,7 +11,7 @@
     "e2e": "ng e2e",
     "clean": "rimraf dist",
     "build:dist": "npm run clean && npm run build:prod && npm run copyfiles",
-    "copyfiles": "",
+    "copyfiles": "copyfiles -f README.md dist/fsms-angular-pubsub",
     "release:git": "standard-version --release-as patch && git add . package.json && git commit -m \"chore: bump version number\" && git push --follow-tags origin main",
     "release:npm": "npm run build:dist && npm publish dist/fsms-angular-pubsub",
     "release": "npm run release:git && npm run release:npm",
@@ -39,6 +39,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
+    "copyfiles": "^2.4.1",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~5.0.0",
