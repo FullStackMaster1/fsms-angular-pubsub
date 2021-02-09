@@ -45,7 +45,7 @@ jobs:
           echo ::set-output name=tag_name::$(git describe HEAD --abbrev=0)
 
       - name: Build & Publish
-        run: npm run release
+        run: npm run release:npm
       - name: Archive build
         if: success()
         uses: actions/upload-artifact@v1
