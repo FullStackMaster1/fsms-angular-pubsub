@@ -1,6 +1,6 @@
 {
   "name": "@fsms/angular-pubsub",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "peerDependencies": {
     "@angular/common": "^10.1.6",
     "@angular/core": "^10.1.6"
