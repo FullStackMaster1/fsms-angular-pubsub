@@ -21,9 +21,7 @@ export const DEFAULT_PUBSUB_CONFIG: Readonly<Required<PubsubConfig>> = {
 };
 
 export interface PubsubMetadata<T extends object>
-  extends Required<PubsubConfig> {
-  propertyName: PubsubPropertyKey<T>;
-}
+  extends Required<PubsubConfig> {}
 
 export type PubsubPropertyKey<T extends object> = Exclude<
   keyof T,

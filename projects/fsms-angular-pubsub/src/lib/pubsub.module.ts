@@ -72,14 +72,3 @@ export function createPubsubInstances(
 ): any[] {
   return pubsubs.map((pubsub) => injector.get(pubsub));
 }
-export function registerHandler(config: any): ClassDecorator {
-  return <T extends object>(target: T) => {
-    const metadata: PubsubMetadata<T> = {
-      ...DEFAULT_PUBSUB_CONFIG,
-      ...config,
-    };
-    Object.defineProperty(target, METADATA_KEY, {
-      value: [metadata],
-    });
-  };
-}

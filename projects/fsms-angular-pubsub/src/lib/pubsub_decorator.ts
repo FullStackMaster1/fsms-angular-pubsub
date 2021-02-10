@@ -8,36 +8,23 @@ import { getSourceForInstance } from './utils';
 
 const METADATA_KEY = '__@fsms/pubsubs__';
 
-export function MessageHandler(config: PubsubConfig = {}) {
-  debugger;
-  return (constructor: any) => {
-    debugger;
-    console.log("Logging: "+ constructor.prototype);
+export function registerHandler(config: any): ClassDecorator {
+  return <T extends object>(target: T) => {
+    const metadata: PubsubMetadata<T> = {
+      ...DEFAULT_PUBSUB_CONFIG,
+      ...config,
+    };
+    Object.defineProperty(target, METADATA_KEY, {
+      value: metadata,
+    });
   };
-  // return <T extends Object, K extends PubsubPropertyKey<T>>(
-  //   target: T,
-  //   propertyName: K
-  // ) => {
-  //   const metadata: PubsubMetadata<T> = {
-  //     ...DEFAULT_PUBSUB_CONFIG,
-  //     ...config,
-  //     propertyName,
-  //   };
-  //   addPubsubMetadataEntry<T>(target, metadata);
-  // };
 }
 
 export function getPubsubDecoratorMetadata<T>(
   instance: T
 ): PubsubMetadata<T>[] {
-  // const effectsDecorators: PubsubMetadata<T>[] = compose(
-  //   getPubsubMetadataEntries,
-  //   getSourceForInstance
-  // )(instance);
-
-  return [];
-
-  // return effectsDecorators;
+  const y = getSourceForInstance(instance);
+  return y.constructor[METADATA_KEY];
 }
 
 /**

@@ -17,8 +17,7 @@ export class PubsubRootModule {
     @Inject(ROOT_PUBSUBS) rootPubsubs: any[]
   ) {
     rootPubsubs.forEach((h: IHandleMessage<any>) => {
-      const y = getSourceForInstance(h);
-      const z = y.constructor[METADATA_KEY] as PubsubConfig;
+
 
       z.messages.forEach((m: IBaseMessage) => {
         pubsubService.subscribe({
