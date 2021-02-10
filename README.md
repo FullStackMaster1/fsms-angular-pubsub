@@ -9,7 +9,7 @@ Angular publish subscribe framework powered by RxJX.
 - Run below to install
 
 ```
-npm i -S fsms-angular-pubsub
+npm i -S @fsms/angular-pubsub
 ```
 
 - Initialize module for root in your angular root module
