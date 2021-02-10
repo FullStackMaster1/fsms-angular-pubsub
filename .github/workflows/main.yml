@@ -33,7 +33,15 @@ jobs:
       - name: Test
         run: npm run test:ci
 
+      - name: Publish Test Report
+        uses: romeovs/lcov-reporter-action@v0.2.16
+        with:
+          github-token: ${{ secrets.GH_TOKEN }}
+          lcov-file: ./coverage/fsms-angular-pubsub/lcov.info
+
+
       - name: Generate tag and ChangeLog
+        if: success()
         run: |
           git config user.name rupeshtiwari
           git config user.email roopkt@gmail.com
