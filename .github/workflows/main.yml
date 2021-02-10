@@ -3,7 +3,7 @@ name: build
 on:
   push:
     branches:
-      - 'main'
+      - "main"
 
 jobs:
   build:
@@ -59,10 +59,9 @@ jobs:
         run: npm run build:ci
 
       - name: NPM Publish
-        uses: JS-DevTools/npm-publish@v1
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
-          package: dist/fsms-angular-pubsub
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Archive build
         if: success()
