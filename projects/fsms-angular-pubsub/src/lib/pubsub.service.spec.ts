@@ -22,15 +22,9 @@ describe('PubSubService', () => {
       expect(() => service.subscribe(undefined)).toThrow();
     });
 
-    it('should return an observable when there is no callback', (): void => {
-      let result: any = service.subscribe({ message: { type: 'orderplaced' } });
-      expect(service['map'].size).toBe(1);
-      expect(result instanceof Observable).toBeTruthy();
-    });
-
     it('should return a subscriber when there is a callback specified', (): void => {
-      let result: any = service.subscribe({
-        message: { type: 'orderplaced' },
+      const result: any = service.subscribe({
+        messageType: 'orderplaced',
         callback: () => {},
       });
       expect(result instanceof Subscriber).toBeTruthy();
@@ -41,17 +35,21 @@ describe('PubSubService', () => {
     beforeEach(() => {
       service.clearAllSubscriptions();
       service.subscribe({
-        message: { type: 'orderready' },
-        callback: () => console.log('happy'),
+        messageType: 'orderplaced',
+        callback: () => {},
       });
       service.subscribe({
-        message: { type: 'orderready' },
-        callback: () => 'order1',
+        messageType: 'orderplaced',
+        callback: () => {},
+      });
+      service.subscribe({
+        messageType: 'ordercancelled',
+        callback: () => {},
       });
     });
 
     it('should have one subcription', () => {
-      expect(service['map'].size).toBe(1);
+      expect((service as any).map.size).toBe(2);
     });
 
     describe('if I clear all subscriptions', () => {
@@ -59,8 +57,8 @@ describe('PubSubService', () => {
         service.clearAllSubscriptions();
       });
       it('no subscriptions', () => {
-        expect(service['map'].size).toBe(0);
-        expect(service['subscriptions'].length).toBe(0);
+        expect((service as any).map.size).toBe(0);
+        expect((service as any).subscriptions.length).toBe(0);
       });
     });
   });
