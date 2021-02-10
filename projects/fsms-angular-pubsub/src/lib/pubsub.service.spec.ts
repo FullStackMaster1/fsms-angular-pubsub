@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 import { Observable, Subscriber } from 'rxjs';
 import { PubSubModule } from '../public-api';
-import { PubSubService } from './pubsub.service';
+import { PubsubService } from './pubsub.service';
 
 describe('PubSubService', () => {
-  let service: PubSubService;
+  let service: PubsubService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [PubSubModule.forRoot()],
     });
-    service = TestBed.inject(PubSubService);
+    service = TestBed.inject(PubsubService);
   });
 
   it('should be created', () => {
