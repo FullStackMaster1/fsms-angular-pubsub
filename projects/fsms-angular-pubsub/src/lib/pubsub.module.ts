@@ -1,15 +1,17 @@
 import { Injector, ModuleWithProviders, NgModule, Type } from '@angular/core';
+import { DEFAULT_PUBSUB_CONFIG, PubsubMetadata } from './model';
 import { PubsubService } from './pubsub.service';
 import { defaultPubsubsErrorHandler } from './pubsub_error_handler';
-import { PubsubRootModule } from './pubsub_root_module';
+import { METADATA_KEY, PubsubRootModule } from './pubsub_root_module';
 import { PubsubsRunner } from './pubsub_runner';
 import { PubsubSources } from './pubsub_sources';
 import {
   PUBSUB_ERROR_HANDLER,
   ROOT_PUBSUBS,
   USER_PROVIDED_PUBSUBS,
-  _ROOT_PUBSUBS
+  _ROOT_PUBSUBS,
 } from './tokens';
+import { getSourceForInstance } from './utils';
 
 @NgModule()
 export class PubSubModule {
@@ -69,4 +71,15 @@ export function createPubsubInstances(
   pubsubs: Type<any>[]
 ): any[] {
   return pubsubs.map((pubsub) => injector.get(pubsub));
+}
+export function registerHandler(config: any): ClassDecorator {
+  return <T extends object>(target: T) => {
+    const metadata: PubsubMetadata<T> = {
+      ...DEFAULT_PUBSUB_CONFIG,
+      ...config,
+    };
+    Object.defineProperty(target, METADATA_KEY, {
+      value: [metadata],
+    });
+  };
 }

@@ -8,7 +8,7 @@ export class PubsubSources extends Subject<any> {
   constructor(
     private errorHandler: ErrorHandler,
     @Inject(PUBSUB_ERROR_HANDLER)
-    private effectsErrorHandler: PubsubErrorHandler
+    private pubsubsErrorHandler: PubsubErrorHandler
   ) {
     super();
   }

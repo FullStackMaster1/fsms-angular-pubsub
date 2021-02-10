@@ -1,4 +1,4 @@
-import { Message } from './message';
+import { IMessage } from './message';
 
 export interface SubscribeOptions {
   messageType: string;

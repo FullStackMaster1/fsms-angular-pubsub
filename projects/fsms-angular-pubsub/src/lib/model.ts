@@ -1,5 +1,5 @@
 import { Type } from '@angular/core';
-import { Message } from './message';
+import { IMessage } from './message';
 
 /**
  * Configures an pubsub created by `createPubsub`.
@@ -8,24 +8,24 @@ export interface PubsubConfig {
   /**
    * List of messages to subscribe.
    */
-  messages?: Type<Message>[];
+  messages?: Type<IMessage>[];
   /**
-   * Determines if the pubsub will be resubscribed to if an error occurs in the main actions stream.
+   * Determines if the pubsub will tracing messages or not.
    */
-  usePubsubsErrorHandler?: boolean;
+  useTracing?: boolean;
 }
 
-export const DEFAULT_EFFECT_CONFIG: Readonly<Required<PubsubConfig>> = {
+export const DEFAULT_PUBSUB_CONFIG: Readonly<Required<PubsubConfig>> = {
   messages: [],
-  usePubsubsErrorHandler: true,
+  useTracing: true,
 };
 
-export interface PubsubMetadata<T extends Object>
+export interface PubsubMetadata<T extends object>
   extends Required<PubsubConfig> {
   propertyName: PubsubPropertyKey<T>;
 }
 
-export type PubsubPropertyKey<T extends Object> = Exclude<
+export type PubsubPropertyKey<T extends object> = Exclude<
   keyof T,
-  keyof Object
+  keyof object
 >;

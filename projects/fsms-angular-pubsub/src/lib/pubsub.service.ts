@@ -1,16 +1,20 @@
 import { Type } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { ReplaySubject, Subject, Subscription } from 'rxjs';
-import { Message } from './message';
+import { IMessage } from './message';
 import { SubscribeOptions } from './subscribe-options';
 
-type T = Array<Message>;
-export abstract class BaseMessageHandler<R extends T> {
-  get Messages() {
-    return 'xdescribe';
-  }
+export type X = Array<IMessage>;
+export interface IHandleMessage<M> {
+ // subscribedTo(): Type<M>;
 
-  constructor() {}
+  handle(message: M): void;
+}
+
+export interface IHandleMessages<MS extends X> {
+  subscribedTo(): Type<IMessage>[];
+
+  handle(message: IMessage): void;
 }
 
 const ServiceName = 'PubSub Service';
@@ -43,7 +47,7 @@ export class PubsubService {
     return subscription;
   }
 
-  public publish<V extends Message = Message>(message: V): void {
+  public publish<V extends IMessage = IMessage>(message: V): void {
     if (!message) {
       throwError('Publish method must get event name.');
     } else if (!this.hasSubject(message.type)) {

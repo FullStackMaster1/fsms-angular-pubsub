@@ -2,16 +2,16 @@ import { ErrorHandler } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Message } from './message';
+import { IMessage } from './message';
 
-export type PubsubErrorHandler = <T extends Message>(
+export type PubsubErrorHandler = <T extends IMessage>(
   observable$: Observable<T>,
   errorHandler: ErrorHandler
 ) => Observable<T>;
 
 const MAX_NUMBER_OF_RETRY_ATTEMPTS = 10;
 
-export function defaultPubsubsErrorHandler<T extends Message>(
+export function defaultPubsubsErrorHandler<T extends IMessage>(
   observable$: Observable<T>,
   errorHandler: ErrorHandler,
   retryAttemptLeft: number = MAX_NUMBER_OF_RETRY_ATTEMPTS

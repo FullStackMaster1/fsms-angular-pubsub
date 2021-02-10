@@ -1,31 +1,43 @@
-
- 
+import {
+  DEFAULT_PUBSUB_CONFIG,
+  PubsubConfig,
+  PubsubMetadata,
+  PubsubPropertyKey,
+} from './model';
 import { getSourceForInstance } from './utils';
 
 const METADATA_KEY = '__@fsms/pubsubs__';
 
-
 export function MessageHandler(config: PubsubConfig = {}) {
-  return <T extends Object, K extends EffectPropertyKey<T>>(target: T,
-                                                            propertyName: K) => {
-    const metadata: EffectMetadata<T> = {
-      ...DEFAULT_EFFECT_CONFIG,
-      ...config,
-      propertyName,
-    };
-    addEffectMetadataEntry<T>(target, metadata);
+  debugger;
+  return (constructor: any) => {
+    debugger;
+    console.log("Logging: "+ constructor.prototype);
   };
+  // return <T extends Object, K extends PubsubPropertyKey<T>>(
+  //   target: T,
+  //   propertyName: K
+  // ) => {
+  //   const metadata: PubsubMetadata<T> = {
+  //     ...DEFAULT_PUBSUB_CONFIG,
+  //     ...config,
+  //     propertyName,
+  //   };
+  //   addPubsubMetadataEntry<T>(target, metadata);
+  // };
 }
 
-export function getEffectDecoratorMetadata<T>(
+export function getPubsubDecoratorMetadata<T>(
   instance: T
-): EffectMetadata<T>[] {
-  const effectsDecorators: EffectMetadata<T>[] = compose(
-    getEffectMetadataEntries,
-    getSourceForInstance
-  )(instance);
+): PubsubMetadata<T>[] {
+  // const effectsDecorators: PubsubMetadata<T>[] = compose(
+  //   getPubsubMetadataEntries,
+  //   getSourceForInstance
+  // )(instance);
 
-  return effectsDecorators;
+  return [];
+
+  // return effectsDecorators;
 }
 
 /**
@@ -36,16 +48,16 @@ function hasMetadataEntries<T extends Object>(
   sourceProto: T
 ): sourceProto is typeof sourceProto & {
   constructor: typeof sourceProto.constructor & {
-    [METADATA_KEY]: EffectMetadata<T>[];
+    [METADATA_KEY]: PubsubMetadata<T>[];
   };
 } {
   return sourceProto.constructor.hasOwnProperty(METADATA_KEY);
 }
 
-/** Add Effect Metadata to the Effect Class constructor under specific key */
-function addEffectMetadataEntry<T extends object>(
+/** Add Pubsub Metadata to the Pubsub Class constructor under specific key */
+function addPubsubMetadataEntry<T extends object>(
   sourceProto: T,
-  metadata: EffectMetadata<T>
+  metadata: PubsubMetadata<T>
 ) {
   if (hasMetadataEntries(sourceProto)) {
     sourceProto.constructor[METADATA_KEY].push(metadata);
@@ -56,9 +68,9 @@ function addEffectMetadataEntry<T extends object>(
   }
 }
 
-function getEffectMetadataEntries<T extends object>(
+function getPubsubMetadataEntries<T extends object>(
   sourceProto: T
-): EffectMetadata<T>[] {
+): PubsubMetadata<T>[] {
   return hasMetadataEntries(sourceProto)
     ? sourceProto.constructor[METADATA_KEY]
     : [];

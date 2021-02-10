@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { PubsubService } from '@fsms/angular-pubsub';
+import { OrderPaid } from './messages/order-paid-message';
+import { OrderShipped } from './messages/order-shipped-message';
 import { OrderPlaced, OrderPlacedType } from './messages/placeorder-message';
 
 @Component({
@@ -8,15 +10,25 @@ import { OrderPlaced, OrderPlacedType } from './messages/placeorder-message';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor(private messageService: PubsubService) {
-    this.messageService.subscribe({
+  title = 'Pubsub Framework Example App';
+
+  constructor(private pubsubService: PubsubService) {
+    this.pubsubService.subscribe({
       messageType: OrderPlacedType,
       callback: (msg) => console.log('received', msg),
     });
   }
 
-  sendMessage($event: KeyboardEvent) {
+  orderPlaced($event: KeyboardEvent) {
     $event.preventDefault();
-    this.messageService.publish(new OrderPlaced('20 Apples'));
+    this.pubsubService.publish(new OrderPlaced('20 Apples'));
+  }
+  orderPaid($event: KeyboardEvent) {
+    $event.preventDefault();
+    this.pubsubService.publish(new OrderPaid('20 USD'));
+  }
+  orderShipped($event: KeyboardEvent) {
+    $event.preventDefault();
+    this.pubsubService.publish(new OrderShipped('CA, USA'));
   }
 }

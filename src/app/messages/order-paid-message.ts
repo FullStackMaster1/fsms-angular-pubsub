@@ -1,8 +1,8 @@
-import { Message } from '@fsms/angular-pubsub';
+import { MessageDefinition, IBaseMessage } from '@fsms/angular-pubsub';
 
-export const OrderPaidType = '[Sells] Order Paid';
-
-export class OrderPaid implements Message {
-  readonly type = OrderPaidType;
-  constructor(public payload: any) {}
+@MessageDefinition<IBaseMessage>()
+export class OrderPaid {
+  static messageType = '[Payment] Order Paid';
+  type = OrderPaid.messageType;
+  constructor(public payload?: string) {}
 }
