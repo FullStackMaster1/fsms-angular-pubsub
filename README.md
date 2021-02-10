@@ -2,20 +2,22 @@
 
 # Angular Pub/Sub Framework for Angular versions
 
-Angular publish subscribe framework powered by RxJX.
+Angular publish subscribe framework written by using `RxJS` only. 
 
-## Usage
+## Installing Package
 
 - Run below to install
 
 ```
 npm i -S @fsms/angular-pubsub
 ```
+## Using Pub Sub 
 
-- Initialize module for root in your angular root module
+1. Importing Module 
+
+Initialize module for root in your angular root module
 
 ```ts
-...
 
 import { PubSubModule } from '@fsms/angular-pubsub'; // <= HERE
 
@@ -33,36 +35,62 @@ imports: [
 ],
 providers: [],
 bootstrap: [RootComponent]
+});
+
+```
+
+2. Subscribing to Message 
+
+Go to desired component and subscribe to a message. 
+
+```ts
+import { Component } from '@angular/core';
+import { PubSubService } from '@fsms/angular-pubsub';
+import { PlaceOrder, PlaceOrderType } from './placeorder-message';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
 })
-
-...
+export class AppComponent {
+  constructor(private messageService: PubSubService) {
+    this.messageService.subscribe({ // <= HERE
+      messageType: PlaceOrderType,
+      callback: (msg) => console.log('received', msg),
+    });
+  }
+}
 ```
+3. Publishing Message 
 
-- Import & Inject `PubSubService` service where ever you want to use.
-
-### Subscribe
+Now on a button click, I want to publish a message with some payload.
 
 ```ts
-import { PubSubService } from './pubsub.service';
-...
-constructor(private messageService: PubSubService) { }
-...
+import { Component } from '@angular/core';
+import { PubSubService } from '@fsms/angular-pubsub';
+import { PlaceOrder, PlaceOrderType } from './placeorder-message';
 
-messageService.subscribe({
-        message: { type: 'orderready' },
-        callback: () => console.log('happy'),
-      });
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+})
+export class AppComponent {
+  constructor(private messageService: PubSubService) {
+    this.messageService.subscribe({
+      messageType: PlaceOrderType,
+      callback: (msg) => console.log('received', msg),
+    });
+  }
+
+  sendMessage($event: KeyboardEvent) {
+    $event.preventDefault();
+    this.messageService.publish(new PlaceOrder('20 Apples'));// <= HERE
+  }
+}
 ```
-### Publish
 
-```ts
-import { PubSubService } from './pubsub.service';
-...
-constructor(private messageService: PubSubService) { }
-...
-
-messageService.publish(message: { type: 'orderready' });
-```
 
 ### Thank You!
 

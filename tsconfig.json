@@ -16,9 +16,8 @@
       "dom"
     ],
     "paths": {
-      "fsms-angular-pubsub": [
-        "dist/fsms-angular-pubsub/fsms-angular-pubsub",
-        "dist/fsms-angular-pubsub"
+      "@fsms/angular-pubsub": [
+        "projects/fsms-angular-pubsub/src/public-api"
       ]
     }
   }

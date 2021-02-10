@@ -1,52 +1,41 @@
 import { Injectable } from '@angular/core';
-import { ReplaySubject, Subscription } from 'rxjs';
+import { ReplaySubject, Subject, Subscription } from 'rxjs';
 import { Message } from './message';
 import { SubscribeOptions } from './subscribe-options';
 
-const ServiceName: string = 'PubSub Service';
+const ServiceName = 'PubSub Service';
+function throwError(msg: string) {
+  throw new Error(`[${ServiceName}] => ${msg}`);
+}
 @Injectable()
 export class PubSubService {
   private map = new Map();
   private subscriptions: Subscription[] = [];
 
   public subscribe({
-    message,
+    messageType,
     callback,
     error,
     complete,
   }: SubscribeOptions): Subscription {
-    if (!message) {
-      throw new Error(
-        `[${ServiceName}] => Subscription method must get event name.`
-      );
-    }
-
-    const messageType = message.type;
-
     if (!this.hasSubject(messageType)) {
       this.setNewSubject(messageType);
     }
 
-    let subject = this.getSubject(messageType);
+    const subject = this.getSubject(messageType);
 
-    if (typeof callback !== 'function') {
-      return subject.asObservable();
-    } else {
-      const subscription = subject
-        .asObservable()
-        .subscribe(callback, error, complete);
+    const subscription = subject
+      .asObservable()
+      .subscribe(callback, error, complete);
 
-      this.addSubscription(subscription);
+    this.addSubscription(subscription);
 
-      return subscription;
-    }
+    return subscription;
   }
 
-  public publish(message: Message) {
+  public publish<V extends Message = Message>(message: V): void {
     if (!message) {
-      throw new Error(
-        `[${ServiceName}] => Publish method must get event name.`
-      );
+      throwError('Publish method must get event name.');
     } else if (!this.hasSubject(message.type)) {
       return;
     }
@@ -54,25 +43,25 @@ export class PubSubService {
     this.getSubject(message.type).next(message);
   }
 
-  clearAllSubscriptions() {
+  clearAllSubscriptions(): void {
     this.subscriptions.forEach((s) => s && s.unsubscribe());
     this.subscriptions.length = 0;
     this.map.clear();
   }
 
-  private addSubscription(sub: Subscription) {
+  private addSubscription(sub: Subscription): void {
     this.subscriptions.push(sub);
   }
 
-  private getSubject(messageType: string) {
+  private getSubject(messageType: string): ReplaySubject<any> {
     return this.map.get(messageType);
   }
 
-  private hasSubject(messageType: string) {
+  private hasSubject(messageType: string): boolean {
     return this.map.has(messageType);
   }
 
-  private setNewSubject(messageType: string) {
+  private setNewSubject(messageType: string): void {
     this.map.set(messageType, new ReplaySubject<any>());
   }
 }

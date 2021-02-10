@@ -1,3 +1,3 @@
-export class Message {
-  type: string;
+export interface Message {
+  readonly type: string;
 }
