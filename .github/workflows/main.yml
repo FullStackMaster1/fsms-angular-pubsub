@@ -59,11 +59,12 @@ jobs:
       - name: Build
         run: npm run build:ci
 
-      - name: NPM Publish 
+      - name: NPM Publish
         run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        working-directory: dist/fsms-angular-pubsub
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          package: dist/fsms-angular-pubsub
 
       - name: Archive build
         if: success()
