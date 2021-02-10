@@ -58,7 +58,7 @@ jobs:
         run: npm run build:ci
 
       - name: NPM Publish
-        run: npm publish
+        run: npm publish --access public
         working-directory: ./dist/fsms-angular-pubsub
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
