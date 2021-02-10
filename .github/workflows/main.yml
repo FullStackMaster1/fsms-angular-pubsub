@@ -7,7 +7,6 @@ on:
 
 jobs:
   build:
-    name: Test & Build
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -60,8 +59,10 @@ jobs:
 
       - name: NPM Publish
         run: npm publish
+        working-directory: ./dist/fsms-angular-pubsub
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
 
       - name: Archive build
         if: success()

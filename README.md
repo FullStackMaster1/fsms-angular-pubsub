@@ -69,8 +69,8 @@ messageService.publish(message: { type: 'orderready' });
 ### Thank You!
 
 **💖 Say 👋 to me!**
-Rupesh Tiwari
-<a href="https://www.rupeshtiwari.com"> www.rupeshtiwari.com</a> 
-✉️ <a href="mailto:fullstackmaster1@gmail.com?subject=Hi"> Email Rupesh</a>
+Rupesh Tiwari <br/>
+<a href="https://www.rupeshtiwari.com"> www.rupeshtiwari.com</a> <br/>
+✉️ <a href="mailto:fullstackmaster1@gmail.com?subject=Hi"> Email Rupesh</a><br/>
 Founder of <a href="https://www.fullstackmaster.net"> Fullstack Master</a>
 
