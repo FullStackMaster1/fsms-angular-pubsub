@@ -17,7 +17,7 @@ npm i -S @fsms/angular-pubsub
 ```ts
 ...
 
-import { PubSubModule } from 'fsms-angular-pubsub'; // <= HERE
+import { PubSubModule } from '@fsms/angular-pubsub'; // <= HERE
 
 @NgModule({
 declarations: [
