@@ -14,10 +14,12 @@ import { OrderShipped } from '../messages/order-shipped-message';
 })
 export class OrderFulfillmentService
   implements IHandleMessage<OrderShipped | OrderPaid | OrderCreated> {
-  private initialState = {
-    shipped: false,
-    paid: false,
-  };
+  private get initialState() {
+    return {
+      shipped: false,
+      paid: false,
+    };
+  }
 
   private state = this.initialState;
 
@@ -27,12 +29,18 @@ export class OrderFulfillmentService
   }: CallbackOptions<OrderShipped | OrderPaid>): void {
     if (message.messageType === OrderShipped.messageType) {
       console.log('[Sells Order Fulfillment]: Marked Shipped');
-      this.state.shipped = true;
+      this.state = {
+        ...this.state,
+        shipped: true,
+      };
     }
 
     if (message.messageType === OrderPaid.messageType) {
       console.log('[Sells Order Fulfillment]: Marked Paid');
-      this.state.paid = true;
+      this.state = {
+        ...this.state,
+        paid: true,
+      };
     }
 
     if (message.messageType === OrderCreated.messageType) {

@@ -27,7 +27,7 @@ describe('PubSubService', () => {
         messageType: 'orderplaced',
         callback: () => {},
       });
-      expect(result instanceof Subscriber).toBeTruthy();
+      expect(result).toBeDefined();
     });
   });
 
