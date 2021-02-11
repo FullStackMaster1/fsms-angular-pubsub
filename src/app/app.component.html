@@ -1,3 +1,25 @@
 <h1>Message Service Demo</h1>
-<h3> Click below button to publish message </h3>
-<button (click)="sendMessage($event)">Publish Message</button>
+
+<fieldset>
+  <legend>
+    Root Module
+    <span> Click below button to publish message </span>
+  </legend>
+
+  <button (click)="orderPlaced($event)">Publish Order Placed</button> <br>
+  <hr>
+
+  <button (click)="orderPaid($event)">Publish Order Paid</button><br>
+  <hr>
+
+</fieldset>
+
+<br>
+
+<hr>
+<br>
+
+<fieldset>
+  <legend>Feature Module</legend>
+  <app-submit-order></app-submit-order>
+</fieldset>

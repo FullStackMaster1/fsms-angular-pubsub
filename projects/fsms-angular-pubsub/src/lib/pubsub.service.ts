@@ -1,23 +1,29 @@
 import { Injectable } from '@angular/core';
-import { ReplaySubject, Subject, Subscription } from 'rxjs';
-import { Message } from './message';
+import { ReplaySubject, Subscription } from 'rxjs';
+import {
+  CallbackOptions,
+  IMessageHandlerContext,
+  Logger,
+  PubsubSubscription,
+} from './contracts/definitions';
+import { IMessage } from './message';
 import { SubscribeOptions } from './subscribe-options';
+import { TracingService } from './tracing.service';
 
-const ServiceName = 'PubSub Service';
-function throwError(msg: string) {
-  throw new Error(`[${ServiceName}] => ${msg}`);
-}
 @Injectable()
-export class PubSubService {
-  private map = new Map();
+export class PubsubService implements IMessageHandlerContext {
+  constructor(private tracingService: TracingService) {}
+
+  static ServiceName = 'PubSub Service';
+  private map = new Map<string, ReplaySubject<CallbackOptions<IMessage>>>();
   private subscriptions: Subscription[] = [];
 
-  public subscribe({
+  subscribe({
     messageType,
     callback,
     error,
     complete,
-  }: SubscribeOptions): Subscription {
+  }: SubscribeOptions): PubsubSubscription {
     if (!this.hasSubject(messageType)) {
       this.setNewSubject(messageType);
     }
@@ -28,40 +34,63 @@ export class PubSubService {
       .asObservable()
       .subscribe(callback, error, complete);
 
+    this.tracingService.trace(`${messageType} is subscribed`);
+
     this.addSubscription(subscription);
 
-    return subscription;
+    const unsubscribe = () => {
+      this.tracingService.trace(`${messageType} is unsubscribed`);
+      subscription.unsubscribe();
+    };
+
+    return { unsubscribe };
   }
 
-  public publish<V extends Message = Message>(message: V): void {
+  publish<V extends IMessage = IMessage>(message: V): void {
     if (!message) {
-      throwError('Publish method must get event name.');
-    } else if (!this.hasSubject(message.type)) {
+      this.throwError('Publish method must get event name');
+    } else if (!this.hasSubject(message.messageType)) {
       return;
     }
 
-    this.getSubject(message.type).next(message);
+    const context = this as IMessageHandlerContext;
+
+    const subject = this.getSubject(message.messageType);
+
+    this.tracingService.trace(`Publishing: ${message.messageType}`);
+
+    this.tracingService.trace(
+      `${subject.observers.length} subscribers found for: ${message.messageType}`
+    );
+
+    subject.next({ message, context });
   }
 
   clearAllSubscriptions(): void {
     this.subscriptions.forEach((s) => s && s.unsubscribe());
     this.subscriptions.length = 0;
     this.map.clear();
+
+    this.tracingService.trace(`All subscriptions are cleared`);
   }
 
-  private addSubscription(sub: Subscription): void {
+  protected addSubscription(sub: Subscription): void {
     this.subscriptions.push(sub);
   }
 
-  private getSubject(messageType: string): ReplaySubject<any> {
+  protected getSubject(messageType: string) {
     return this.map.get(messageType);
   }
 
-  private hasSubject(messageType: string): boolean {
+  protected hasSubject(messageType: string): boolean {
     return this.map.has(messageType);
   }
 
-  private setNewSubject(messageType: string): void {
-    this.map.set(messageType, new ReplaySubject<any>());
+  protected setNewSubject(messageType: string): void {
+    this.map.set(messageType, new ReplaySubject<CallbackOptions<IMessage>>());
+  }
+
+  private throwError(msg: string) {
+    throw new Error(`[${PubsubService.ServiceName}] => ${msg}`);
   }
 }

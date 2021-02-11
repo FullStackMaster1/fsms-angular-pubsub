@@ -1,19 +1,21 @@
-[![Actions Status](https://github.com/rupeshtiwari/fsms-angular-pubsub/workflows/.github/workflows/main.yml/badge.svg)](https://github.com/rupeshtiwari/fsms-angular-pubsub/actions)
 
-# Angular Pub/Sub Framework for Angular versions
 
-Angular publish subscribe framework written by using `RxJS` only. 
+# Angular PubSub 
 
-## Installing Package
+Angular 11.x implementation of the [publish subscribe](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) Pattern.
 
-- Run below to install
+![GitHub package.json dependency version (subfolder of monorepo)](https://img.shields.io/github/package-json/dependency-version/fullstackmaster1/fsms-angular-pubsub/@angular/core) ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/fullstackmaster1/fsms-angular-pubsub/CI%20and%20CD/main?style=flat) ![npm](https://img.shields.io/npm/dw/@fsms/angular-pubsub?style=flat) [![npm version](https://badge.fury.io/js/%40fsms%2Fangular-pubsub.svg)](https://badge.fury.io/js/%40fsms%2Fangular-pubsub) ![GitHub repo size](https://img.shields.io/github/repo-size/fullstackmaster1/FSMS-ANGULAR-PUBSUB) ![GitHub pull requests](https://img.shields.io/github/issues-pr/fullstackmaster1/fsms-angular-pubsub) ![GitHub last commit](https://img.shields.io/github/last-commit/fullstackmaster1/fsms-angular-pubsub) [![dependencies Status](https://status.david-dm.org/gh/FullStackMaster1/fsms-angular-pubsub.svg)](https://david-dm.org/FullStackMaster1/fsms-angular-pubsub) ![GitHub User's stars](https://img.shields.io/github/stars/fullstackmaster1?style=social) ![GitHub Sponsors](https://img.shields.io/github/sponsors/fullstackmaster1?style=social)
 
-```
+## Installing
+
+**npm installation**
+
+```shell
 npm i -S @fsms/angular-pubsub
 ```
-## Using Pub Sub 
+## Using PubSub For Inline Style
 
-1. Importing Module 
+1. **Importing PubsubModule in application module**.
 
 Initialize module for root in your angular root module
 
@@ -39,14 +41,13 @@ bootstrap: [RootComponent]
 
 ```
 
-2. Subscribing to Message 
+2. **Injecting `PubsubService` as dependency in component** 
 
 Go to desired component and subscribe to a message. 
 
 ```ts
 import { Component } from '@angular/core';
-import { PubSubService } from '@fsms/angular-pubsub';
-import { PlaceOrder, PlaceOrderType } from './placeorder-message';
+import { PubsubService } from '@fsms/angular-pubsub';// <= HERE
 
 @Component({
   selector: 'app-root',
@@ -54,22 +55,31 @@ import { PlaceOrder, PlaceOrderType } from './placeorder-message';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor(private messageService: PubSubService) {
-    this.messageService.subscribe({ // <= HERE
-      messageType: PlaceOrderType,
-      callback: (msg) => console.log('received', msg),
-    });
-  }
+   constructor(
+     private pubsubService: PubsubService/* <= HERE */) {}
 }
 ```
-3. Publishing Message 
+3. **Subscribing to message**
+  
+  In `ngOnInit` method of angular, you can subscribe to the events that you want to react upon. 
 
-Now on a button click, I want to publish a message with some payload.
+```ts
+ngOnInit(): void {
+  this.pubsubService.subscribe({ // <= HERE
+        messageType: PlaceOrderType,
+        callback: (msg) => console.log('received', msg),
+      });
+}
+```
+4. **Publishing Message** 
+The `publish`  method takes one argument where it expect the `message` object.
+
+Example: Now on a button click, I want to publish a message with some payload.
 
 ```ts
 import { Component } from '@angular/core';
-import { PubSubService } from '@fsms/angular-pubsub';
-import { PlaceOrder, PlaceOrderType } from './placeorder-message';
+import { OrderPlaced } from './messages/placeorder-message';
+import { PubsubService } from '@fsms/angular-pubsub';// <= HERE
 
 @Component({
   selector: 'app-root',
@@ -77,26 +87,26 @@ import { PlaceOrder, PlaceOrderType } from './placeorder-message';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor(private messageService: PubSubService) {
-    this.messageService.subscribe({
-      messageType: PlaceOrderType,
-      callback: (msg) => console.log('received', msg),
-    });
-  }
+  constructor(
+     private pubsubService: PubsubService/* <= HERE */) {}
 
-  sendMessage($event: KeyboardEvent) {
+  orderPlaced($event: KeyboardEvent) {
     $event.preventDefault();
-    this.messageService.publish(new PlaceOrder('20 Apples'));// <= HERE
+
+    this.pubsubService.publish(new OrderPlaced('20 Apples'));// <= HERE
   }
 }
 ```
+5. **Unsubscribing Messages**
 
 
-### Thank You!
+---
 
-**💖 Say 👋 to me!**
-Rupesh Tiwari <br/>
-<a href="https://www.rupeshtiwari.com"> www.rupeshtiwari.com</a> <br/>
-✉️ <a href="mailto:fullstackmaster1@gmail.com?subject=Hi"> Email Rupesh</a><br/>
+**Thank You!**
+
+💖 Say 👋 to me!
+Rupesh Tiwari
+<a href="https://www.rupeshtiwari.com"> www.rupeshtiwari.com</a>
+✉️ <a href="mailto:fullstackmaster1@gmail.com?subject=Hi"> Email Rupesh</a>
 Founder of <a href="https://www.fullstackmaster.net"> Fullstack Master</a>
 
