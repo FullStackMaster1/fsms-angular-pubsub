@@ -4,7 +4,6 @@ import { PubsubFeatureModule } from './pubsub_feature_module';
 import { PubsubRootModule } from './pubsub_root_module';
 import {
   FEATURE_PUBSUBS,
-  PUBSUB_ERROR_HANDLER,
   ROOT_PUBSUBS,
   USER_PROVIDED_PUBSUBS,
   _FEATURE_PUBSUBS,

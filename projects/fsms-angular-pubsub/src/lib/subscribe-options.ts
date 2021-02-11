@@ -1,5 +1,3 @@
-import { IMessage } from './message';
-
 export interface SubscribeOptions {
   messageType: string;
   callback: (value: any) => void;

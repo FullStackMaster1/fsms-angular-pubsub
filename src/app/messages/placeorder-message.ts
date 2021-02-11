@@ -1,10 +1,10 @@
-import { IBaseMessage, MessageDefinition } from '@fsms/angular-pubsub';
+import { IMessageSchema, IMessage, DefineMessage } from '@fsms/angular-pubsub';
 
 export const OrderPlacedType = '[Sells] Place Order';
 
-@MessageDefinition<IBaseMessage>()
-export class OrderPlaced {
+@DefineMessage<IMessageSchema>()
+export class OrderPlaced implements IMessage {
   static messageType = '[Sales] Order Placed';
-  type = OrderPlaced.messageType;
+  messageType = OrderPlaced.messageType;
   constructor(public payload?: string) {}
 }

@@ -1,8 +1,12 @@
-import { MessageDefinition, IBaseMessage } from '@fsms/angular-pubsub';
+import {
+  DefineMessage,
+  IMessageSchema,
+  IMessage,
+} from '@fsms/angular-pubsub';
 
-@MessageDefinition<IBaseMessage>()
-export class OrderShipped {
+@DefineMessage<IMessageSchema>()
+export class OrderShipped implements IMessage {
   static messageType = '[Shipping] Order Shipped';
-  type = OrderShipped.messageType;
+  messageType = OrderShipped.messageType;
   constructor(public payload?: any) {}
 }

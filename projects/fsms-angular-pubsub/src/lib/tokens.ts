@@ -1,5 +1,4 @@
 import { InjectionToken, Type } from '@angular/core';
-import { PubsubErrorHandler } from './pubsub_error_handler';
 
 export const _ROOT_PUBSUBS_GUARD = new InjectionToken<void>(
   '@fsms/pubsub Internal Root Guard'
@@ -19,6 +18,4 @@ export const _FEATURE_PUBSUBS = new InjectionToken<Type<any>[]>(
 export const FEATURE_PUBSUBS = new InjectionToken<any[][]>(
   '@fsms/pubsub Feature PubSub'
 );
-export const PUBSUB_ERROR_HANDLER = new InjectionToken<PubsubErrorHandler>(
-  '@fsms/pubsub PubSub Error Handler'
-);
+

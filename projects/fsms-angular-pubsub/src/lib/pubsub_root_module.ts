@@ -16,7 +16,7 @@ export class PubsubRootModule {
   ) {
     sources.addPubsubs(rootPubsubs);
     subscribePubsubs(rootPubsubs, pubsubService);
-    pubsubService.publish({ type: ROOT_PUBSUB_INIT });
+    pubsubService.publish({ messageType: ROOT_PUBSUB_INIT });
   }
 
   addPubsubs(pubsubInstances: any[]) {

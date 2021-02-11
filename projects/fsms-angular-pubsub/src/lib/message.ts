@@ -1,14 +1,14 @@
 export interface IMessage {
-  type: string;
+  messageType: string;
   payload?: any;
 }
 
-export interface IBaseMessage {
+export interface IMessageSchema {
   new (): IMessage;
   messageType;
 }
 
 /* class decorator */
-export function MessageDefinition<T>() {
+export function DefineMessage<T>() {
   return <U extends T>(constructor: U) => constructor;
 }
