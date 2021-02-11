@@ -4,16 +4,16 @@ import { PubsubService } from './pubsub.service';
 import { getPubsubDecoratorMetadata } from './pubsub-metadata';
 
 export function subscribePubsubs(
-  allPubsubs: any[],
+  allPubsubInstances: any[],
   pubsubService: PubsubService
 ) {
-  allPubsubs.forEach((h: IHandleMessage<any>) => {
+  allPubsubInstances.forEach((h: IHandleMessage<any>) => {
     const z = getPubsubDecoratorMetadata(h);
 
     z.messages.forEach((m: IMessageSchema) => {
       pubsubService.subscribe({
         messageType: m.messageType,
-        callback: h.handle as any,
+        callback: h.handle.bind(h) as any,
       });
     });
   });

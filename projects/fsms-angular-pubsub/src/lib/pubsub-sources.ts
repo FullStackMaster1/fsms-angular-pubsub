@@ -3,17 +3,17 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class PubsubSources {
   constructor() {}
-  private allPubsubs = [];
+  private allPubsubInstances = [];
 
   addPubsub(pubsubInstance: any): void {
-    this.allPubsubs.push(pubsubInstance);
+    this.allPubsubInstances.push(pubsubInstance);
   }
 
   addPubsubs(rootPubsubs: any[]) {
     rootPubsubs.forEach((pubsubInstance) => this.addPubsub(pubsubInstance));
   }
 
-  getAllPubsubs() {
-    return this.allPubsubs;
+  getAllPubsubInstances() {
+    return this.allPubsubInstances;
   }
 }

@@ -16,7 +16,12 @@ export class AppComponent implements OnInit {
 
   orderPlaced($event: KeyboardEvent) {
     $event.preventDefault();
-    this.pubsubService.publish(new OrderCreated('20 Apples'));
+    this.pubsubService.publish(
+      new OrderCreated({
+        orderId: new Date().getTime().toString(36),
+        item: '20 Apples',
+      })
+    );
   }
   orderPaid($event: KeyboardEvent) {
     $event.preventDefault();

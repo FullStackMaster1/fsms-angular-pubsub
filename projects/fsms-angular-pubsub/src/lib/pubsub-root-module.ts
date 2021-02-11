@@ -14,7 +14,7 @@ export class PubsubRootModule {
     @Inject(ROOT_PUBSUBS) rootPubsubs: any[]
   ) {
     sources.addPubsubs(rootPubsubs);
-    subscribePubsubs(sources.getAllPubsubs(), pubsubService);
+    subscribePubsubs(sources.getAllPubsubInstances(), pubsubService);
     pubsubService.publish({ messageType: ROOT_PUBSUB_INIT });
   }
 }
