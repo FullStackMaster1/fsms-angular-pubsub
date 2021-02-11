@@ -1,7 +1,7 @@
 import { Inject, NgModule } from '@angular/core';
 import { PubsubService } from './pubsub.service';
-import { subscribePubsubs } from './pubsub_resolver';
-import { PubsubSources } from './pubsub_sources';
+import { subscribePubsubs } from './pubsub-resolver';
+import { PubsubSources } from './pubsub-sources';
 import { ROOT_PUBSUBS } from './tokens';
 
 export const ROOT_PUBSUB_INIT = '@fsms/pubsub/init';

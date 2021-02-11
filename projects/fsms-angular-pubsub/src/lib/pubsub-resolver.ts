@@ -1,6 +1,7 @@
+import { IHandleMessage } from './contracts/definitions';
 import { IMessageSchema } from './message';
-import { IHandleMessage, PubsubService } from './pubsub.service';
-import { getPubsubDecoratorMetadata } from './pubsub_metadata';
+import { PubsubService } from './pubsub.service';
+import { getPubsubDecoratorMetadata } from './pubsub-metadata';
 
 export function subscribePubsubs(
   allPubsubs: any[],

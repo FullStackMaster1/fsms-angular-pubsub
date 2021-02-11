@@ -1,34 +1,16 @@
-import { Type } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { ReplaySubject, Subject, Subscription } from 'rxjs';
-import { IMessageSchema, IMessage } from './message';
+import { ReplaySubject, Subscription } from 'rxjs';
+import {
+  CallbackOptions,
+  IMessageHandlerContext,
+} from './contracts/definitions';
+import { IMessage } from './message';
 import { SubscribeOptions } from './subscribe-options';
-
-export type X = Array<IMessage>;
-export interface IHandleMessage<M> {
-  // subscribedTo(): Type<M>;
-
-  handle(message: M, context: IMessageHandlerContext): void;
-}
-
-export interface IHandleMessages<MS extends X> {
-  subscribedTo(): Type<IMessage>[];
-
-  handle(message: IMessage): void;
-}
-
-const ServiceName = 'PubSub Service';
-function throwError(msg: string) {
-  throw new Error(`[${ServiceName}] => ${msg}`);
-}
-
-export interface MessageSubscription {
-  unsubscribe();
-}
 
 @Injectable()
 export class PubsubService implements IMessageHandlerContext {
-  private map = new Map();
+  static ServiceName = 'PubSub Service';
+  private map = new Map<string, ReplaySubject<CallbackOptions<IMessage>>>();
   private subscriptions: Subscription[] = [];
 
   subscribe({
@@ -54,7 +36,7 @@ export class PubsubService implements IMessageHandlerContext {
 
   publish<V extends IMessage = IMessage>(message: V): void {
     if (!message) {
-      throwError('Publish method must get event name.');
+      this.throwError('Publish method must get event name.');
     } else if (!this.hasSubject(message.messageType)) {
       return;
     }
@@ -74,7 +56,7 @@ export class PubsubService implements IMessageHandlerContext {
     this.subscriptions.push(sub);
   }
 
-  protected getSubject(messageType: string): ReplaySubject<any> {
+  protected getSubject(messageType: string) {
     return this.map.get(messageType);
   }
 
@@ -83,16 +65,10 @@ export class PubsubService implements IMessageHandlerContext {
   }
 
   protected setNewSubject(messageType: string): void {
-    this.map.set(
-      messageType,
-      new ReplaySubject<{
-        message: IMessage;
-        context: IMessageHandlerContext;
-      }>()
-    );
+    this.map.set(messageType, new ReplaySubject<CallbackOptions<IMessage>>());
   }
-}
 
-export interface IMessageHandlerContext {
-  publish<V extends IMessage = IMessage>(message: V): void;
+  private throwError(msg: string) {
+    throw new Error(`[${PubsubService.ServiceName}] => ${msg}`);
+  }
 }

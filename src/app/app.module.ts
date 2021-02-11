@@ -2,10 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { PubsubModule } from '@fsms/angular-pubsub';
 import { AppComponent } from './app.component';
-import {
-  PrepareOrderService,
-  ShipOrderService,
-} from './services/ship-order.service';
+import { ShipOrderService } from "./services/ship-order-service";
+import { PrepareOrderService } from "./services/prepare-order-service";
 import { FormsModule } from '@angular/forms';
 import { OrdersModule } from './orders/orders.module';
 

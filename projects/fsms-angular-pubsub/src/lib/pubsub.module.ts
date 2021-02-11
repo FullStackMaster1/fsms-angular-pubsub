@@ -1,7 +1,7 @@
 import { Injector, ModuleWithProviders, NgModule, Type } from '@angular/core';
 import { PubsubService } from './pubsub.service';
-import { PubsubFeatureModule } from './pubsub_feature_module';
-import { PubsubRootModule } from './pubsub_root_module';
+import { PubsubFeatureModule } from './pubsub-feature-module';
+import { PubsubRootModule } from './pubsub-root-module';
 import {
   FEATURE_PUBSUBS,
   ROOT_PUBSUBS,
@@ -9,7 +9,7 @@ import {
   _FEATURE_PUBSUBS,
   _ROOT_PUBSUBS,
 } from './tokens';
-import { PubsubSources } from './pubsub_sources';
+import { PubsubSources } from './pubsub-sources';
 
 @NgModule()
 export class PubsubModule {

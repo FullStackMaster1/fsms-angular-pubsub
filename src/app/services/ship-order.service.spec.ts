@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { ShipOrderService } from './ship-order.service';
+import { ShipOrderService } from './ship-order-service';
 
 fdescribe('ShipOrderService', () => {
   let shipOrderService: ShipOrderService;

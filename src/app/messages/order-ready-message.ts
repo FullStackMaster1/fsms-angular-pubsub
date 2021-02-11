@@ -5,8 +5,8 @@ import {
 } from '@fsms/angular-pubsub';
 
 @DefineMessage<IMessageSchema>()
-export class OrderPaid implements IMessage {
-  static messageType = '[Payment] Order Paid';
-  messageType = OrderPaid.messageType;
+export class OrderReady implements IMessage {
+  static messageType = '[Inventory] Order Ready';
+  messageType = OrderReady.messageType;
   constructor(public payload?: string) {}
 }
