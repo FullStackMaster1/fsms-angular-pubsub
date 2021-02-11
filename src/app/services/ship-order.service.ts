@@ -1,10 +1,11 @@
-import { Injectable, Type } from '@angular/core';
-import { IHandleMessage, registerHandler } from '@fsms/angular-pubsub';
+import { Injectable } from '@angular/core';
+import { IHandleMessage, RegisterHandler } from '@fsms/angular-pubsub';
+
 import { OrderPaid } from '../messages/order-paid-message';
 import { OrderPlaced } from '../messages/placeorder-message';
 
 @Injectable({ providedIn: 'root' })
-@registerHandler({
+@RegisterHandler({
   messages: [OrderPaid],
 })
 export class ShipOrderService implements IHandleMessage<OrderPaid> {
@@ -13,7 +14,7 @@ export class ShipOrderService implements IHandleMessage<OrderPaid> {
   }
 }
 @Injectable({ providedIn: 'root' })
-@registerHandler({
+@RegisterHandler({
   messages: [OrderPlaced, OrderPaid],
 })
 export class PrepareOrderService

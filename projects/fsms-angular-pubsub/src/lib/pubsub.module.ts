@@ -9,6 +9,7 @@ import {
   _FEATURE_PUBSUBS,
   _ROOT_PUBSUBS,
 } from './tokens';
+import { PubsubSources } from './pubsub_sources';
 
 @NgModule()
 export class PubsubModule {
@@ -17,6 +18,7 @@ export class PubsubModule {
   ): ModuleWithProviders<PubsubFeatureModule> {
     return {
       ngModule: PubsubFeatureModule,
+
       providers: [
         featurePubsubs,
         {
@@ -35,6 +37,8 @@ export class PubsubModule {
           useFactory: createPubsubs,
           deps: [Injector, _FEATURE_PUBSUBS, USER_PROVIDED_PUBSUBS],
         },
+        PubsubService,
+        PubsubSources,
       ],
     };
   }
@@ -51,6 +55,7 @@ export class PubsubModule {
           useValue: [rootPubsubs],
         },
         PubsubService,
+        PubsubSources,
         {
           provide: USER_PROVIDED_PUBSUBS,
           multi: true,

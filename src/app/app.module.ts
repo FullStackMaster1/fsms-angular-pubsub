@@ -7,11 +7,13 @@ import {
   ShipOrderService,
 } from './services/ship-order.service';
 import { FormsModule } from '@angular/forms';
+import { OrdersModule } from './orders/orders.module';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    OrdersModule,
     FormsModule,
     PubsubModule.forRoot([ShipOrderService, PrepareOrderService]),
   ],

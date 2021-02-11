@@ -7,5 +7,6 @@ import { PubsubModule } from '@fsms/angular-pubsub';
 @NgModule({
   declarations: [SubmitOrderComponent],
   imports: [CommonModule, PubsubModule.forFeature([PlaceOrderService])],
+  exports:[ SubmitOrderComponent]
 })
 export class OrdersModule {}

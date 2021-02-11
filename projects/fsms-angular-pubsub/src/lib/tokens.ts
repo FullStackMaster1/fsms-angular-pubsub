@@ -19,3 +19,4 @@ export const FEATURE_PUBSUBS = new InjectionToken<any[][]>(
   '@fsms/pubsub Feature PubSub'
 );
 
+export const METADATA_KEY = '__@fsms/pubsub__';

@@ -1,7 +1,6 @@
 // tslint:disable: ban-types
 import { DEFAULT_PUBSUB_CONFIG, PubsubConfig } from './model';
-
-const METADATA_KEY = '__@fsms/pubsubs__';
+import { METADATA_KEY } from './tokens';
 
 export function RegisterHandler(config: PubsubConfig): ClassDecorator {
   return <T extends Object>(target: T) => {

@@ -1,16 +1,16 @@
 import { Inject, NgModule } from '@angular/core';
-import { PubsubRootModule } from './pubsub_root_module';
+import { PubsubSources } from './pubsub_sources';
 import { FEATURE_PUBSUBS } from './tokens';
 
 @NgModule({})
 export class PubsubFeatureModule {
   constructor(
-    root: PubsubRootModule,
+    sources: PubsubSources,
     @Inject(FEATURE_PUBSUBS) pubsubSourceGroups: any[][]
   ) {
     pubsubSourceGroups.forEach((group) =>
       group.forEach((pubsubSourceInstance) =>
-        root.addPubsubs(pubsubSourceInstance)
+        sources.addPubsub(pubsubSourceInstance)
       )
     );
   }
