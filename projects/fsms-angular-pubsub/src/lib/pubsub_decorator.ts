@@ -1,15 +1,10 @@
-import {
-  DEFAULT_PUBSUB_CONFIG,
-  PubsubConfig,
-  PubsubMetadata,
-  PubsubPropertyKey,
-} from './model';
-import { getSourceForInstance } from './utils';
+// tslint:disable: ban-types
+import { DEFAULT_PUBSUB_CONFIG, PubsubMetadata } from './model';
 
 const METADATA_KEY = '__@fsms/pubsubs__';
 
-export function registerHandler(config: any): ClassDecorator {
-  return <T extends object>(target: T) => {
+export function RegisterHandler(config: any): ClassDecorator {
+  return <T extends Object>(target: T) => {
     const metadata: PubsubMetadata<T> = {
       ...DEFAULT_PUBSUB_CONFIG,
       ...config,
@@ -18,47 +13,4 @@ export function registerHandler(config: any): ClassDecorator {
       value: metadata,
     });
   };
-}
-
-export function getPubsubDecoratorMetadata<T>(
-  instance: T
-): PubsubMetadata<T>[] {
-  const y = getSourceForInstance(instance);
-  return y.constructor[METADATA_KEY];
-}
-
-/**
- * Type guard to detemine whether METADATA_KEY is already present on the Class
- * constructor
- */
-function hasMetadataEntries<T extends Object>(
-  sourceProto: T
-): sourceProto is typeof sourceProto & {
-  constructor: typeof sourceProto.constructor & {
-    [METADATA_KEY]: PubsubMetadata<T>[];
-  };
-} {
-  return sourceProto.constructor.hasOwnProperty(METADATA_KEY);
-}
-
-/** Add Pubsub Metadata to the Pubsub Class constructor under specific key */
-function addPubsubMetadataEntry<T extends object>(
-  sourceProto: T,
-  metadata: PubsubMetadata<T>
-) {
-  if (hasMetadataEntries(sourceProto)) {
-    sourceProto.constructor[METADATA_KEY].push(metadata);
-  } else {
-    Object.defineProperty(sourceProto.constructor, METADATA_KEY, {
-      value: [metadata],
-    });
-  }
-}
-
-function getPubsubMetadataEntries<T extends object>(
-  sourceProto: T
-): PubsubMetadata<T>[] {
-  return hasMetadataEntries(sourceProto)
-    ? sourceProto.constructor[METADATA_KEY]
-    : [];
 }

@@ -1,3 +1,5 @@
+
+// tslint:disable: ban-types
 import { Type } from '@angular/core';
 import { IMessage } from './message';
 
@@ -20,10 +22,15 @@ export const DEFAULT_PUBSUB_CONFIG: Readonly<Required<PubsubConfig>> = {
   useTracing: true,
 };
 
-export interface PubsubMetadata<T extends object>
+export interface PubsubMetadata<T extends Object>
   extends Required<PubsubConfig> {}
 
-export type PubsubPropertyKey<T extends object> = Exclude<
+
+export type PubsubPropertyKey<T extends Object> = Exclude<
   keyof T,
   keyof object
 >;
+
+export type PubsubsMetadata<T> = {
+  [key in PubsubPropertyKey<T>]?: PubsubConfig;
+};
