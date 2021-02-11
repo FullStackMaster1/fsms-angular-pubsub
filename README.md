@@ -4,14 +4,14 @@
 
 Angular 11.x implementation of the [publish subscribe](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) pattern. 
 
-<!-- 
-[![Actions Status](https://github.com/rupeshtiwari/fsms-angular-pubsub/workflows/.github/workflows/main.yml/badge.svg)](https://github.com/rupeshtiwari/fsms-angular-pubsub/actions) -->
+ 
+[![Actions Status](https://github.com/rupeshtiwari/fsms-angular-pubsub/workflows/.github/workflows/main.yml/badge.svg)](https://github.com/rupeshtiwari/fsms-angular-pubsub/actions)  
 
 [![npm version](https://badge.fury.io/js/%40fsms%2Fangular-pubsub.svg)](https://badge.fury.io/js/%40fsms%2Fangular-pubsub)
 
 [![dependencies Status](https://status.david-dm.org/gh/FullStackMaster1/fsms-angular-pubsub.svg)](https://david-dm.org/FullStackMaster1/fsms-angular-pubsub)
 
-[![devDependencies Status](https://status.david-dm.org/gh/FullStackMaster1/fsms-angular-pubsub/dev-status.svg)](https://david-dm.org/FullStackMaster1/fsms-angular-pubsub)
+[![devDependencies Status](https://status.david-dm.org/gh/FullStackMaster1/fsms-angular-pubsub/dev-status.svg)](https://david-dm.org/FullStackMaster1/fsms-angular-pubsub#info=devDependencies)
 
 ## Installing
 
