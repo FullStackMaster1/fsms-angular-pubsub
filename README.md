@@ -1,12 +1,15 @@
-[![Actions Status](https://github.com/rupeshtiwari/fsms-angular-pubsub/workflows/.github/workflows/main.yml/badge.svg)](https://github.com/rupeshtiwari/fsms-angular-pubsub/actions)
+
 
 # Angular PubSub 
 
 Angular 10.x implementation of the publish subscribe pattern. 
 
+<!-- 
+[![Actions Status](https://github.com/rupeshtiwari/fsms-angular-pubsub/workflows/.github/workflows/main.yml/badge.svg)](https://github.com/rupeshtiwari/fsms-angular-pubsub/actions) -->
+
 [![npm version](https://badge.fury.io/js/%40fsms%2Fangular-pubsub.svg)](https://badge.fury.io/js/%40fsms%2Fangular-pubsub)
 
-[![dependencies Status](https://status.david-dm.org/gh/FullStackMaster1/fsms-angular-pubsub.svg)](https://david-dm.org/FullStackMaster1/fsms-angular-pubsub)
+<!-- [![dependencies Status](https://status.david-dm.org/gh/FullStackMaster1/fsms-angular-pubsub.svg)](https://david-dm.org/FullStackMaster1/fsms-angular-pubsub) -->
 
 ## Installing
 
