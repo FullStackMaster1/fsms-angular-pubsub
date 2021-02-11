@@ -1,8 +1,4 @@
-import {
-  DefineMessage,
-  IMessageSchema,
-  IMessage,
-} from '@fsms/angular-pubsub';
+import { DefineMessage, IMessageSchema, IMessage } from '@fsms/angular-pubsub';
 
 @DefineMessage<IMessageSchema>()
 export class OrderShipped implements IMessage {

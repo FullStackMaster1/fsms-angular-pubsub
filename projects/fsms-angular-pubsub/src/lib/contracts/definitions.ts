@@ -21,3 +21,7 @@ export abstract class Logger {
   abstract log(message?: any, ...optionalParams: any[]): void;
   abstract warn(message?: any, ...optionalParams: any[]): void;
 }
+
+export interface PubsubSubscription {
+  unsubscribe();
+}

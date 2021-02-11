@@ -1,2 +1,2 @@
-export * from '../contracts/logger';
+export * from './default-logger';
 export * from './utils';

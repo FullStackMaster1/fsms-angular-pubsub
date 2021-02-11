@@ -10,6 +10,9 @@ import {
   _ROOT_PUBSUBS,
 } from './tokens';
 import { PubsubSources } from './pubsub-sources';
+import { Logger } from './contracts/definitions';
+import { DefaultLogger } from './utils/default-logger';
+import { TracingService } from './tracing.service';
 
 @NgModule()
 export class PubsubModule {
@@ -39,6 +42,8 @@ export class PubsubModule {
         },
         PubsubService,
         PubsubSources,
+        TracingService,
+        { provide: Logger, useClass: DefaultLogger },
       ],
     };
   }
@@ -66,6 +71,8 @@ export class PubsubModule {
           useFactory: createPubsubs,
           deps: [Injector, _ROOT_PUBSUBS, USER_PROVIDED_PUBSUBS],
         },
+        TracingService,
+        { provide: Logger, useClass: DefaultLogger },
       ],
     };
   }

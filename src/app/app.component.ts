@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PubsubService } from '@fsms/angular-pubsub';
 import { OrderReady } from './messages/order-ready-message';
 import { OrderShipped } from './messages/order-shipped-message';
-import { OrderPlaced } from './messages/placeorder-message';
+import { OrderCreated } from './messages/order-created-message';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
 
   orderPlaced($event: KeyboardEvent) {
     $event.preventDefault();
-    this.pubsubService.publish(new OrderPlaced('20 Apples'));
+    this.pubsubService.publish(new OrderCreated('20 Apples'));
   }
   orderPaid($event: KeyboardEvent) {
     $event.preventDefault();

@@ -3,12 +3,17 @@ import { ReplaySubject, Subscription } from 'rxjs';
 import {
   CallbackOptions,
   IMessageHandlerContext,
+  Logger,
+  PubsubSubscription,
 } from './contracts/definitions';
 import { IMessage } from './message';
 import { SubscribeOptions } from './subscribe-options';
+import { TracingService } from './tracing.service';
 
 @Injectable()
 export class PubsubService implements IMessageHandlerContext {
+  constructor(private tracingService: TracingService) {}
+
   static ServiceName = 'PubSub Service';
   private map = new Map<string, ReplaySubject<CallbackOptions<IMessage>>>();
   private subscriptions: Subscription[] = [];
@@ -18,7 +23,7 @@ export class PubsubService implements IMessageHandlerContext {
     callback,
     error,
     complete,
-  }: SubscribeOptions): Subscription {
+  }: SubscribeOptions): PubsubSubscription {
     if (!this.hasSubject(messageType)) {
       this.setNewSubject(messageType);
     }
@@ -29,27 +34,44 @@ export class PubsubService implements IMessageHandlerContext {
       .asObservable()
       .subscribe(callback, error, complete);
 
+    this.tracingService.trace(`${messageType} is subscribed`);
+
     this.addSubscription(subscription);
 
-    return subscription;
+    const unsubscribe = () => {
+      this.tracingService.trace(`${messageType} is unsubscribed`);
+      subscription.unsubscribe();
+    };
+
+    return { unsubscribe };
   }
 
   publish<V extends IMessage = IMessage>(message: V): void {
     if (!message) {
-      this.throwError('Publish method must get event name.');
+      this.throwError('Publish method must get event name');
     } else if (!this.hasSubject(message.messageType)) {
       return;
     }
 
     const context = this as IMessageHandlerContext;
 
-    this.getSubject(message.messageType).next({ message, context });
+    const subject = this.getSubject(message.messageType);
+
+    this.tracingService.trace(`Publishing: ${message.messageType}`);
+
+    this.tracingService.trace(
+      `${subject.observers.length} subscribers found for: ${message.messageType}`
+    );
+
+    subject.next({ message, context });
   }
 
   clearAllSubscriptions(): void {
     this.subscriptions.forEach((s) => s && s.unsubscribe());
     this.subscriptions.length = 0;
     this.map.clear();
+
+    this.tracingService.trace(`All subscriptions are cleared`);
   }
 
   protected addSubscription(sub: Subscription): void {

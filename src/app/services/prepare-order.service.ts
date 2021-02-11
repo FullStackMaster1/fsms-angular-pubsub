@@ -5,18 +5,14 @@ import {
   RegisterHandler,
 } from '@fsms/angular-pubsub';
 import { OrderReady } from '../messages/order-ready-message';
-import { OrderPlaced } from '../messages/placeorder-message';
+import { OrderCreated } from '../messages/order-created-message';
 
 @Injectable({ providedIn: 'root' })
 @RegisterHandler({
-  messages: [OrderPlaced, OrderReady],
+  messages: [OrderCreated],
 })
-export class PrepareOrderService
-  implements IHandleMessage<OrderReady | OrderPlaced> {
-  handle({
-    message,
-    context,
-  }: CallbackOptions<OrderReady | OrderPlaced>): void {
+export class PrepareOrderService implements IHandleMessage<OrderCreated> {
+  handle({ message, context }: CallbackOptions<OrderCreated>): void {
     console.log('[Inventory] Packaging Order', message);
     context.publish(new OrderReady(message.payload));
   }
