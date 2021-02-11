@@ -8,7 +8,7 @@ export type X = Array<IMessage>;
 export interface IHandleMessage<M> {
   // subscribedTo(): Type<M>;
 
-  handle(message: M): void;
+  handle(message: M, context: IMessageHandlerContext): void;
 }
 
 export interface IHandleMessages<MS extends X> {
@@ -30,11 +30,6 @@ export interface MessageSubscription {
 export class PubsubService implements IMessageHandlerContext {
   private map = new Map();
   private subscriptions: Subscription[] = [];
-
-  private payload: {
-    message: IBaseMessage;
-    context: IMessageHandlerContext;
-  } = {};
 
   subscribe({
     messageType,
@@ -64,11 +59,11 @@ export class PubsubService implements IMessageHandlerContext {
       return;
     }
 
-    this.getSubject(message.messageType).next(
-      message,
-      this as IMessageHandlerContext
-    );
+    const context = this as IMessageHandlerContext;
+
+    this.getSubject(message.messageType).next({ message, context });
   }
+
   clearAllSubscriptions(): void {
     this.subscriptions.forEach((s) => s && s.unsubscribe());
     this.subscriptions.length = 0;
@@ -88,7 +83,13 @@ export class PubsubService implements IMessageHandlerContext {
   }
 
   protected setNewSubject(messageType: string): void {
-    this.map.set(messageType, new ReplaySubject<any>());
+    this.map.set(
+      messageType,
+      new ReplaySubject<{
+        message: IMessage;
+        context: IMessageHandlerContext;
+      }>()
+    );
   }
 }
 

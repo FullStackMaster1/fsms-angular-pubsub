@@ -11,7 +11,7 @@ import {
 } from './tokens';
 
 @NgModule()
-export class PubSubModule {
+export class PubsubModule {
   static forFeature(
     featurePubsubs: Type<any>[] = []
   ): ModuleWithProviders<PubsubFeatureModule> {
