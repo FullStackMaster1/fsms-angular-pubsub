@@ -1,19 +1,17 @@
 import { NgModule, Inject, Optional } from '@angular/core';
-import { StoreRootModule, StoreFeatureModule } from '@ngrx/store';
-import { PubsubsRootModule } from './effects_root_module';
+import { PubsubRootModule } from './pubsub_root_module';
+
 import { FEATURE_PUBSUBS } from './tokens';
 
 @NgModule({})
-export class PubsubsFeatureModule {
+export class PubsubFeatureModule {
   constructor(
-    root: PubsubsRootModule,
-    @Inject(FEATURE_PUBSUBS) effectSourceGroups: any[][],
-    @Optional() storeRootModule: StoreRootModule,
-    @Optional() storeFeatureModule: StoreFeatureModule
+    root: PubsubRootModule,
+    @Inject(FEATURE_PUBSUBS) pubsubSourceGroups: any[][],
   ) {
-    effectSourceGroups.forEach((group) =>
-      group.forEach((effectSourceInstance) =>
-        root.addPubsubs(effectSourceInstance)
+    pubsubSourceGroups.forEach((group) =>
+      group.forEach((pubsubSourceInstance) =>
+        root.addPubsubs(pubsubSourceInstance)
       )
     );
   }
