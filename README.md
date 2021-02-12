@@ -3,7 +3,22 @@
 
 Angular 11.x implementation of the [publish subscribe](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) Pattern.
 
-![GitHub package.json dependency version (subfolder of monorepo)](https://img.shields.io/github/package-json/dependency-version/fullstackmaster1/fsms-angular-pubsub/@angular/core) [![Build Status](https://dev.azure.com/fullstackmaster/open-source/_apis/build/status/FullStackMaster1.fsms-angular-pubsub?branchName=main)](https://dev.azure.com/fullstackmaster/open-source/_build/latest?definitionId=1&branchName=main) ![npm](https://img.shields.io/npm/dw/@fsms/angular-pubsub?style=flat) [![npm version](https://badge.fury.io/js/%40fsms%2Fangular-pubsub.svg)](https://badge.fury.io/js/%40fsms%2Fangular-pubsub) ![GitHub repo size](https://img.shields.io/github/repo-size/fullstackmaster1/FSMS-ANGULAR-PUBSUB) ![GitHub pull requests](https://img.shields.io/github/issues-pr/fullstackmaster1/fsms-angular-pubsub) ![GitHub last commit](https://img.shields.io/github/last-commit/fullstackmaster1/fsms-angular-pubsub) [![dependencies Status](https://status.david-dm.org/gh/FullStackMaster1/fsms-angular-pubsub.svg)](https://david-dm.org/FullStackMaster1/fsms-angular-pubsub) ![GitHub User's stars](https://img.shields.io/github/stars/fullstackmaster1?style=social) ![GitHub Sponsors](https://img.shields.io/github/sponsors/fullstackmaster1?style=social)
+<!-- Angular Badges-->
+![GitHub package.json dependency version (subfolder of monorepo)](https://img.shields.io/github/package-json/dependency-version/fullstackmaster1/fsms-angular-pubsub/@angular/core) [![npm version](https://badge.fury.io/js/%40fsms%2Fangular-pubsub.svg)](https://badge.fury.io/js/%40fsms%2Fangular-pubsub) 
+<!-- Angular Badges-->
+
+<!-- Azure Badges-->
+ [![Build Status](https://dev.azure.com/fullstackmaster/open-source/_apis/build/status/FullStackMaster1.fsms-angular-pubsub?branchName=main)](https://dev.azure.com/fullstackmaster/open-source/_build/latest?definitionId=1&branchName=main) ![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/fullstackmaster/open-source/1)
+<!-- Azure Badges-->
+
+<!-- Statistics Badges-->
+![downloads](https://img.shields.io/npm/dw/@fsms/angular-pubsub?style=flat) ![GitHub repo size](https://img.shields.io/github/repo-size/fullstackmaster1/FSMS-ANGULAR-PUBSUB) ![GitHub pull requests](https://img.shields.io/github/issues-pr/fullstackmaster1/fsms-angular-pubsub) ![GitHub last commit](https://img.shields.io/github/last-commit/fullstackmaster1/fsms-angular-pubsub) 
+<!-- Statistics Badges-->
+
+<!-- Dependency and Socials Badges-->
+[![dependencies Status](https://status.david-dm.org/gh/FullStackMaster1/fsms-angular-pubsub.svg)](https://david-dm.org/FullStackMaster1/fsms-angular-pubsub) ![GitHub User's stars](https://img.shields.io/github/stars/fullstackmaster1?style=social) ![GitHub Sponsors](https://img.shields.io/github/sponsors/fullstackmaster1?style=social)
+<!-- Dependency and Socials Badges-->
+
 
 > By [Rupesh Tiwari](https://rupeshtiwari.com)
 
