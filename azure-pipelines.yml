@@ -54,6 +54,9 @@ steps:
   - script: npm run build:ci
     displayName: Build
 
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact'
+
   - script: |
       npm publish --access public
     displayName: Npm Publish
