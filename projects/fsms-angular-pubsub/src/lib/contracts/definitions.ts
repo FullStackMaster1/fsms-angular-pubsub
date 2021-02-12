@@ -23,5 +23,5 @@ export abstract class Logger {
 }
 
 export interface PubsubSubscription {
-  unsubscribe();
+  unsubscribe(): void;
 }
