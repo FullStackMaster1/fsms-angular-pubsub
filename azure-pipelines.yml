@@ -60,22 +60,6 @@ steps:
     displayName: Build
     enabled: true
 
-  - task: npmAuthenticate@0
-    inputs:
-      workingFile: ./dist/fsms-angular-pubsub/.npmrc
-
-  - task: Npm@1
-    inputs:
-      command: "custom"
-      workingDir: "./dist/fsms-angular-pubsub"
-      verbose: true
-      customCommand: "publish --access public"
-    condition: |
-      and(
-        succeeded(),
-        ne(variables['IS_PULLREQUEST'], 'true')
-      )
-
   - task: CopyFiles@2
     displayName: "Copy Files to: $(Build.ArtifactStagingDirectory)"
     enabled: true
@@ -92,4 +76,15 @@ steps:
 
   - task: PublishBuildArtifacts@1
     displayName: "Publish Artifact"
-    enabled: true 
+    enabled: true
+
+  - script: |
+      echo "publishing to npm repository"
+      node ./tools/publish.js 'fsms-angular-pubsub'
+    enabled: true
+    displayName: Publish NPM
+    condition: |
+      and(
+        succeeded(),
+        ne(variables['IS_PULLREQUEST'], 'true')
+      )
