@@ -23,11 +23,9 @@ steps:
 
   - script: |
       export tag=$(node ./tools/version.js)
-      echo "##vso[task.setvariable variable=tag]$tag"
-    displayName: New Version
-
-  - script: echo "##vso[build.updatebuildnumber]$tag"
-    displayName: "Update Build Number"
+      echo $tag
+      echo "##vso[build.updatebuildnumber]$tag"
+    displayName: Update Build Number
 
   - script: echo "$(Build.BuildNumber)"
     displayName: "New Build Number"
