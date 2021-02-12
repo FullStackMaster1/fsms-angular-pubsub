@@ -6,6 +6,9 @@ pool:
 trigger:
   - main
 
+variables:
+  IS_PULLREQUEST: $[eq(variables['Build.Reason'], 'PullRequest')]
+
 steps:
   - task: Cache@2
     displayName: "Cache npm Dependencies"
@@ -54,6 +57,18 @@ steps:
   - script: npm run build:ci
     displayName: Build
 
+  - task: CopyFiles@2
+    displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+    inputs:
+      SourceFolder: './dist/fsms-angular-pubsub'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+  - task: ArchiveFiles@2
+    displayName: 'Archive $(Build.ArtifactStagingDirectory)'
+    inputs:
+      rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
+      includeRootFolder: false
+
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact'
 
@@ -61,3 +76,8 @@ steps:
       npm publish --access public
     displayName: Npm Publish
     workingDirectory: './dist/fsms-angular-pubsub'
+    condition: |
+      and(
+        succeeded(),
+        ne(variables['IS_PULLREQUEST'], 'true')
+      )
