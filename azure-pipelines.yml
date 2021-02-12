@@ -3,7 +3,6 @@ name: Angular Pubsub Azure CI Pipeline
 pool:
   vmImage: "ubuntu-latest"
 
-
 trigger:
   - main
 
@@ -22,8 +21,17 @@ steps:
       verbose: false
     condition: eq(variables['CacheRestored'],False)
 
+  - script: echo "##vso[task.setvariable variable=tag]$(node ./tools/version.js)"
+    displayName: New Version
+
+  - script: echo "##vso[build.updatebuildnumber]$tag"
+    displayName: "Update Build Number"
+
+  - script: echo "$(Build.BuildNumber)"
+    displayName: "New Build Number"
+
   - script: npm run test:ci
-    name: Test
+    displayName: Test
 
   - task: PublishTestResults@2
     displayName: Test Report
@@ -42,3 +50,9 @@ steps:
       summaryFileLocation: "./coverage/fsms-angular-pubsub/cobertura-coverage.xml"
     condition: |
       succeeded()
+
+  - script: npm run build:ci
+    displayName: Build
+
+  - script: npm run npmPublish
+    displayName: Npm Publish

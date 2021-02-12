@@ -1,6 +1,6 @@
 {
   "name": "@fsms/angular-pubsub-app",
-  "version": "2.0.11",
+  "version": "2.0.17",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -11,12 +11,9 @@
     "clean": "rimraf dist",
     "build:ci": "run-s clean build:prod copyfiles",
     "test:ci": "ng test fsms-angular-pubsub --watch=false --browsers=ChromeHeadless --code-coverage=true",
-    "copyfiles": "copyfiles -f README.md projects/fsms-angular-pubsub/.npmrc dist/fsms-angular-pubsub",
-    "release:git": "standard-version --release-as patch && git add . package.json && git commit -m \"chore: bump version number\" && git push --follow-tags origin main",
-    "release:npm": "npm run build:ci && npm publish dist/fsms-angular-pubsub --access public",
-    "release": "npm run release:git && npm run release:npm",
-    "postinstall": "ngcc",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
+    "copyfiles": "copyfiles -f README.md .npmrc CHANGELOG.md dist/fsms-angular-pubsub",
+    "npmPublish": "npm publish dist/fsms-angular-pubsub --access public",
+    "postinstall": "ngcc"
   },
   "private": true,
   "dependencies": {
@@ -40,8 +37,6 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
-    "conventional-changelog": "^3.1.24",
-    "conventional-changelog-cli": "^2.1.1",
     "copyfiles": "^2.4.1",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
