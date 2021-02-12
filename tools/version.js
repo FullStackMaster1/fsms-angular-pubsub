@@ -5,7 +5,7 @@ const standardVersion = require("standard-version");
 standardVersion({
   noVerify: true,
   infile: "CHANGELOG.md",
-  silent: false,
+  silent: true,
   skip: {
     commit: true,
     tag: true,
