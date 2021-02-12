@@ -1,7 +1,8 @@
 # Trigger CI automatically whenever main branch is changed
+name: Angular Pubsub Azure CI Pipeline
 pool:
   vmImage: "ubuntu-latest"
-  
+
 
 trigger:
   - main
