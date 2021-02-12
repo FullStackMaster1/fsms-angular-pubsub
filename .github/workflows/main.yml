@@ -33,11 +33,17 @@ jobs:
       - name: Test
         run: npm run test:ci
 
-      - name: Publish Test Report
+      - name: Test Report
         uses: EnricoMi/publish-unit-test-result-action@v1.8
         if: always()
         with:
           files: ./coverage/fsms-angular-pubsub/test-report.xml
+
+      - name: Code Coverage Report
+        uses: romeovs/lcov-reporter-action@v0.2.16
+        with:
+          github-token: ${{ secrets.GH_TOKEN }}
+          lcov-file: ./coverage/fsms-angular-pubsub/lcov.info
 
       - name: Generate tag and ChangeLog
         if: success()
