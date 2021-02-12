@@ -1,6 +1,6 @@
 {
   "name": "@fsms/angular-pubsub-app",
-  "version": "1.0.19",
+  "version": "2.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

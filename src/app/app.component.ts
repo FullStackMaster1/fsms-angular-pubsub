@@ -1,18 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { PubsubService } from '@fsms/angular-pubsub';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { PubsubService, PubsubSubscription } from '@fsms/angular-pubsub';
+import { OrderCreated } from './messages/order-created-message';
 import { OrderReady } from './messages/order-ready-message';
 import { OrderShipped } from './messages/order-shipped-message';
-import { OrderCreated } from './messages/order-created-message';
+import { PlaceOrder } from './orders/messages/place-order-message';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
+  subscriptions: PubsubSubscription[] = [];
+
   constructor(private pubsubService: PubsubService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // HERE >=
+    this.subscriptions.push(
+      this.pubsubService.subscribe({
+        messageType: PlaceOrder.messageType,
+        callback: (msg) => console.log('received', msg),
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((s) => s.unsubscribe());
+  }
 
   orderPlaced($event: KeyboardEvent) {
     $event.preventDefault();
