@@ -323,9 +323,9 @@ Contributions are welcome!🙂 If you find any problems or would like to contrib
 
 You can also contribute by becoming an [official sponsor](https://github.com/sponsors/rupeshtiwari) to help keep Angular Pub-Sub well-maintained.
 
-💖 Say 👋 to me!
-Rupesh Tiwari
-<a href="https://www.rupeshtiwari.com"> www.rupeshtiwari.com</a>
-✉️ <a href="mailto:fullstackmaster1@gmail.com?subject=Hi"> Email Rupesh Tiwari</a>
+💖 Say 👋 to me!<br>
+Rupesh Tiwari<br>
+<a href="https://www.rupeshtiwari.com"> www.rupeshtiwari.com</a><br>
+✉️ <a href="mailto:fullstackmaster1@gmail.com?subject=Hi"> Email Rupesh Tiwari</a><br>
 Founder of <a href="https://www.fullstackmaster.net"> Fullstack Master</a>
 
