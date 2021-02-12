@@ -3,17 +3,22 @@ const buildId = process.argv[2];
 const sourceBranchName = process.argv[3];
 // Options are the same as command line, except camelCase
 // standardVersion returns a Promise
-await standardVersion({
-  noVerify: true,
-  infile: "CHANGELOG.md",
-  silent: true,
-  skip: {
-    commit: true,
-    tag: true,
-  },
-});
+
+async function execute() {
+  await standardVersion({
+    noVerify: true,
+    infile: "CHANGELOG.md",
+    silent: true,
+    skip: {
+      commit: true,
+      tag: true,
+    },
+  });
+}
+
+execute();
 
 // standard-version is done
 console.log(
-  require("../package.json").version + buildId + "-" + sourceBranchName
+  require("../package.json").version +"."+ buildId + "-" + sourceBranchName
 );
