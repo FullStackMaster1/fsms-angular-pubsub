@@ -54,5 +54,6 @@ steps:
   - script: npm run build:ci
     displayName: Build
 
-  - script: npm run npmPublish
+  - script: npm publish
     displayName: Npm Publish
+    workingDirectory: './dist/fsms-angular-pubsub'
