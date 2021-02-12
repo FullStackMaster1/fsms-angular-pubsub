@@ -22,7 +22,7 @@ steps:
     condition: eq(variables['CacheRestored'],False)
 
   - script: |
-      export tag=$(node ./tools/version.js)
+      export tag=$(node ./tools/version.js $(Build.BuildId) $(Build.SourceBranchName))
       echo $tag
       echo "##vso[build.updatebuildnumber]$tag"
     displayName: Update Build Number

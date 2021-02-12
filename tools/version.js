@@ -1,8 +1,9 @@
 const standardVersion = require("standard-version");
-
+const buildId = process.argv[2];
+const sourceBranchName = process.argv[3];
 // Options are the same as command line, except camelCase
 // standardVersion returns a Promise
-standardVersion({
+await standardVersion({
   noVerify: true,
   infile: "CHANGELOG.md",
   silent: true,
@@ -10,11 +11,9 @@ standardVersion({
     commit: true,
     tag: true,
   },
-})
-  .then((x) => {
-    // standard-version is done
-    console.log(require("../package.json").version);
-  })
-  .catch((err) => {
-    console.error(`standard-version failed with message: ${err.message}`);
-  });
+});
+
+// standard-version is done
+console.log(
+  require("../package.json").version + buildId + "-" + sourceBranchName
+);
