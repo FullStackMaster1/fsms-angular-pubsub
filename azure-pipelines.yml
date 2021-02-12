@@ -21,7 +21,9 @@ steps:
       verbose: false
     condition: eq(variables['CacheRestored'],False)
 
-  - script: echo "##vso[task.setvariable variable=tag]$(node ./tools/version.js)"
+  - script: |
+      export tag=$(node ./tools/version.js)
+      echo "##vso[task.setvariable variable=tag]$tag"
     displayName: New Version
 
   - script: echo "##vso[build.updatebuildnumber]$tag"
