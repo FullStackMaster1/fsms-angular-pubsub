@@ -24,7 +24,7 @@ Angular 11.x implementation of the [publish subscribe](https://en.wikipedia.org/
 
 ## Installing @fsms/angular-pubsub
 
-**npm installation**
+**npm installation** 
 
 ```shell
 npm i -S @fsms/angular-pubsub

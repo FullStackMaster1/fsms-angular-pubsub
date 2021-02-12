@@ -29,10 +29,10 @@ module.exports = function (config) {
         __dirname,
         "../../coverage/fsms-angular-pubsub"
       ),
-      reports: ["html", "lcovonly", "text-summary"],
+      reports: ["html", "lcovonly", "text-summary", "cobertura"],
       fixWebpackSourcePaths: true,
     },
-    reporters: ["progress", 'kjhtml',  "junit"],
+    reporters: ["progress", "kjhtml", "junit"],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
