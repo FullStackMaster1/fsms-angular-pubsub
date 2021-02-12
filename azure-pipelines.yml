@@ -83,7 +83,7 @@ steps:
       workingFile: ./dist/fsms-angular-pubsub/.npmrc
 
   - script: |
-      npm publish
+      npm publish --access=public
     displayName: Npm Publish
     workingDirectory: './dist/fsms-angular-pubsub'
     condition: |
