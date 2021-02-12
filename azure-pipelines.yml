@@ -1,31 +1,33 @@
+trigger:
+  - master
+
 pool:
   name: Azure CI
   demands: npm
 
 steps:
-- task: Npm@1
-  displayName: 'npm install'
-  inputs:
-    verbose: false
+  - task: Cache@2
+    displayName: "Cache npm Dependencies"
+    inputs:
+      key: "**/package-lock.json, !**/node_modules/**/package-lock.json, !**/.*/**/package-lock.json"
+      path: "$(Build.SourcesDirectory)/node_modules"
+      cacheHitVar: CacheRestored
 
-- task: Npm@1
-  displayName: 'npm build'
-  inputs:
-    command: custom
-    verbose: false
-    customCommand: 'run build:apps'
+  - task: Npm@1
+    displayName: "npm ci"
+    inputs:
+      command: ci
+      verbose: false
+    condition: eq(variables['CacheRestored'],False)
 
-- task: CopyFiles@2
-  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
-  inputs:
-    SourceFolder: '$(Build.SourcesDirectory)/dist'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  - script: npm run test:ci
+    name: Test
 
-- task: ArchiveFiles@2
-  displayName: 'Archive $(Build.ArtifactStagingDirectory)'
-  inputs:
-    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
-    includeRootFolder: false
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
+  - task: PublishTestResults@2
+    displayName: Test Report
+    inputs:
+      testResultsFormat: "JUnit"
+      testResultsFiles: "./coverage/fsms-angular-pubsub/test-report.xml"
+      mergeTestResults: true
+    condition: |
+      succeeded()
