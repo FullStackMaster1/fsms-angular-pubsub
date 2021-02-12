@@ -15,7 +15,7 @@ steps:
       cacheHitVar: CacheRestored
 
   - task: Npm@1
-    displayName: "npm ci"
+    displayName: "Npm CI"
     inputs:
       command: ci
       verbose: false
