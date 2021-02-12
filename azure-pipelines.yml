@@ -1,9 +1,9 @@
+# Trigger CI automatically whenever main branch is changed
+pool:
+  vmImage: 'ubuntu-latest'
+
 trigger:
   - main
-
-pool:
-  vmImage: ubuntu-default
-  demands: npm
 
 steps:
   - task: Cache@2
