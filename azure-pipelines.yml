@@ -34,10 +34,12 @@ steps:
     displayName: "New Build Number"
 
   - script: npm run test:ci
+    enabled: false
     displayName: Test
 
   - task: PublishTestResults@2
     displayName: Test Report
+    enabled: false
     inputs:
       testResultsFormat: "JUnit"
       testResultsFiles: "./coverage/fsms-angular-pubsub/test-report.xml"
@@ -46,7 +48,7 @@ steps:
       succeeded()
 
   - task: PublishCodeCoverageResults@1
-    enabled: true
+    enabled: false
     displayName: Code Coverage
     inputs:
       codeCoverageTool: "Cobertura"
@@ -56,24 +58,32 @@ steps:
 
   - script: npm run build:ci
     displayName: Build
+    enabled: true
 
   - task: CopyFiles@2
     displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+    enabled: false
     inputs:
       SourceFolder: './dist/fsms-angular-pubsub'
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
   - task: ArchiveFiles@2
     displayName: 'Archive $(Build.ArtifactStagingDirectory)'
+    enabled: false
     inputs:
       rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
       includeRootFolder: false
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact'
+    enabled: false
+
+  - task: npmAuthenticate@0
+    inputs:
+      workingFile: ./dist/fsms-angular-pubsub/.npmrc
 
   - script: |
-      npm publish --access public
+      npm publish
     displayName: Npm Publish
     workingDirectory: './dist/fsms-angular-pubsub'
     condition: |
