@@ -60,24 +60,6 @@ steps:
     displayName: Build
     enabled: true
 
-  - task: CopyFiles@2
-    displayName: "Copy Files to: $(Build.ArtifactStagingDirectory)"
-    enabled: false
-    inputs:
-      SourceFolder: "./dist/fsms-angular-pubsub"
-      TargetFolder: "$(Build.ArtifactStagingDirectory)"
-
-  - task: ArchiveFiles@2
-    displayName: "Archive $(Build.ArtifactStagingDirectory)"
-    enabled: false
-    inputs:
-      rootFolderOrFile: "$(Build.ArtifactStagingDirectory)"
-      includeRootFolder: false
-
-  - task: PublishBuildArtifacts@1
-    displayName: "Publish Artifact"
-    enabled: false
-
   - task: npmAuthenticate@0
     inputs:
       workingFile: ./dist/fsms-angular-pubsub/.npmrc
@@ -87,9 +69,27 @@ steps:
       command: "custom"
       workingDir: "./dist/fsms-angular-pubsub"
       verbose: true
-      customCommand: 'publish --access public'
+      customCommand: "publish --access public"
     condition: |
       and(
         succeeded(),
         ne(variables['IS_PULLREQUEST'], 'true')
       )
+
+  - task: CopyFiles@2
+    displayName: "Copy Files to: $(Build.ArtifactStagingDirectory)"
+    enabled: true
+    inputs:
+      SourceFolder: "./dist/fsms-angular-pubsub"
+      TargetFolder: "$(Build.ArtifactStagingDirectory)"
+
+  - task: ArchiveFiles@2
+    displayName: "Archive $(Build.ArtifactStagingDirectory)"
+    enabled: true
+    inputs:
+      rootFolderOrFile: "$(Build.ArtifactStagingDirectory)"
+      includeRootFolder: false
+
+  - task: PublishBuildArtifacts@1
+    displayName: "Publish Artifact"
+    enabled: true 
