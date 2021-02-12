@@ -7,20 +7,19 @@ Angular 11.x implementation of the [publish subscribe](https://en.wikipedia.org/
 
 > By [Rupesh Tiwari](https://rupeshtiwari.com)
 
-
 **If you enjoy @fsms/angular-pubsub, please consider [supporting me](https://github.com/sponsors/rupeshtiwari) for years of development (and to unlock rewards!) ❤**
-
 
 ## Table of Contents
 
 - [Angular PubSub](#angular-pubsub)
   - [Table of Contents](#table-of-contents)
   - [Installing @fsms/angular-pubsub](#installing-fsmsangular-pubsub)
-  - [Message](#message)
-  - [Pubsub Service (Angular Service)](#pubsub-service-angular-service)
+  - [Definitions](#definitions)
+    - [Message](#message)
+    - [Pub sub Service (Angular Service)](#pub-sub-service-angular-service)
   - [Using PubSub Service](#using-pubsub-service)
-  - [Using Message Handler Services](#using-message-handler-services)
-    - [Contributions](#contributions)
+  - [Using Angular Service As Message Handler](#using-angular-service-as-message-handler)
+  - [Contributions](#contributions)
 
 
 ## Installing @fsms/angular-pubsub
@@ -31,8 +30,10 @@ Angular 11.x implementation of the [publish subscribe](https://en.wikipedia.org/
 npm i -S @fsms/angular-pubsub
 ```
 
+## Definitions
 
-## Message 
+You need `Message` class to create your messages and you need `PubsubService` to publish or subscribe messages. 
+### Message 
 
 `Message` holds `messageType` and optional payload
 
@@ -55,7 +56,7 @@ export class PlaceOrder implements IMessage {
 }
 ```
 
-## Pubsub Service (Angular Service)
+### Pub sub Service (Angular Service)
 
 `pubsubService` is used to publish and subscribe messages. 
 
@@ -77,7 +78,7 @@ Initialize module for root in your angular root module
 
 ```ts
 
-import { PubSubModule } from '@fsms/angular-pubsub'; // <= HERE
+import { PubSubModule } from '@fsms/angular-pubsub'; 👈 // Importing Angular Pubsub module
 
 @NgModule({
 declarations: [
@@ -89,7 +90,7 @@ imports: [
    BrowserModule,
    FormsModule,
    HttpModule,
-   PubSubModule.forRoot() // <= AND HERE
+   PubSubModule.forRoot() 👈 // Initiate Pubsub module
 ],
 providers: [],
 bootstrap: [RootComponent]
@@ -103,7 +104,7 @@ Go to desired component and subscribe to a message.
 
 ```ts
 import { Component } from '@angular/core';
-import { PubsubService } from '@fsms/angular-pubsub';// <= HERE
+import { PubsubService } from '@fsms/angular-pubsub';👈 // Importing Angular Pubsub module
 
 @Component({
   selector: 'app-root',
@@ -111,9 +112,9 @@ import { PubsubService } from '@fsms/angular-pubsub';// <= HERE
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-   
    constructor(
      private pubsubService: PubsubService/* <= HERE */) {}
+               👆// Injecting Angular Pubsub Service
 }
 ```
 3. **Subscribing to message**
@@ -135,9 +136,9 @@ export class AppComponent implements OnInit {
   constructor(private pubsubService: PubsubService) {}
 
   ngOnInit(): void {
-    // HERE >=
+         
     this.subscriptions.push(
-      this.pubsubService.subscribe({
+      this.pubsubService.subscribe({ 👈// Subscribing to a message
         messageType: PlaceOrder.messageType,
         callback: (msg) => console.log('received', msg),
       })
@@ -167,7 +168,7 @@ export class AppComponent {
   orderPlaced($event: KeyboardEvent) {
     $event.preventDefault();
 
-    this.pubsubService.publish(/* <= HERE */
+    this.pubsubService.publish( 👈// Publishing a message
       new OrderCreated({
         orderId: new Date().getTime().toString(36),
         item: '20 Apples',
@@ -178,18 +179,28 @@ export class AppComponent {
 ```
 5. **Unsubscribing Messages**
 
-On component you must unsubscribe your subscriptions on `ngOnDestroy` event. 
+Keep all subscriptions per component in an array. And On component you must unsubscribe your subscriptions on `ngOnDestroy` event. 
 
 ```ts
  ngOnDestroy(): void {
-    this.subscriptions.forEach((s) => s.unsubscribe());
+    this.subscriptions.forEach((s) => s.unsubscribe());👈// Unsubscribing a message
   }
 ```
 
-## Using Message Handler Services
+## Using Angular Service As Message Handler
 
-If you want to subscribe to message in Service Oriented way. 
-Like you can create a Angular service class that can become a Message Handler. Then you can use `RegisterHandler` decorator on any Angular Service then it will automatically be registered as message subscriber. This helps us to organize your business logic in services rather in angular components.
+Convert Angular service to a Message Handler. If to organize your angular code base as Service Oriented Architecture (SOA) way. And you want to create an Angular service that can listen to a Message and react on them just like a N-ServiceBus Message Handlers? 
+
+Then you must use `@RegisterHandler({})` decorator on any Angular Service then it will automatically be registered as message subscriber. This helps us to organize your business logic in services rather in angular components.
+
+**Message Handler**
+
+Message handler is a service that can listen to one message or more messages and perform business logic. Message Handler can also publish after handling incoming messages. 
+
+Diagram of a Angular Service as Message Handler called as `ShipOrderService` which listens to `OrderReady` message and process shipping then publishes `OrderShipped` message. 
+
+![](https://i.imgur.com/r60vyT4.png)
+
 
 **Creating Message Handler at Root Module**
 
@@ -207,15 +218,16 @@ import {
 import { OrderReady } from '../messages/order-ready-message';
 import { OrderShipped } from '../messages/order-shipped-message';
 
-@Injectable({ providedIn: 'root' })
-@RegisterHandler({
-  messages: [OrderReady],
+@Injectable({ providedIn: 'root' }) // Angular Service
+@RegisterHandler({ 👈
+  messages: [OrderReady],👈 // You can listen to many messages
 })
 export class ShipOrderService implements IHandleMessage<OrderReady> {
   handle({ message, context }: CallbackOptions<OrderReady>): void {
     console.log('[Shipping] Order Shipped', message);
 
     context.publish(new OrderShipped(message.payload));
+    👆 // context will have publish method to publish any message from message handler. 
   }
 }
 ```
@@ -238,8 +250,8 @@ import { ShipOrderService } from './services/ship-order.service';
   imports: [
     BrowserModule,
     FormsModule,
-    PubsubModule.forRoot([
-      ShipOrderService, // <= HERE
+    PubsubModule.forRoot([ // Register App Module level Message Handlers
+      ShipOrderService, 👈
     ]),
   ],
   providers: [],
@@ -262,7 +274,7 @@ import { RegisterHandler } from 'projects/fsms-angular-pubsub/src/lib/pubsub-dec
 import { OrderCreated } from 'src/app/messages/order-created-message';
 import { PlaceOrder } from '../messages/place-order-message';
 
-@RegisterHandler({
+@RegisterHandler({👈 // Create as Message Handler
   messages: [PlaceOrder],
 })
 export class CreateOrderService implements IHandleMessage<PlaceOrder> {
@@ -297,13 +309,15 @@ import { PubsubModule } from '@fsms/angular-pubsub';
 
 @NgModule({
   declarations: [SubmitOrderComponent],
-  imports: [CommonModule, PubsubModule.forFeature([CreateOrderService])],
+  imports: [CommonModule, 
+    PubsubModule.forFeature([CreateOrderService]) 👈 // Registering as feature message handler
+  ],
   exports: [SubmitOrderComponent],
 })
 export class OrdersModule {}
 ```
 
-### Contributions
+## Contributions
 
 Contributions are welcome!🙂 If you find any problems or would like to contribute in any way, feel free to create a pull request/open an issue/send me a message.
 
