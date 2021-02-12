@@ -84,9 +84,10 @@ steps:
 
   - task: Npm@1
     inputs:
-      command: "publish"
+      command: "custom"
       workingDir: "./dist/fsms-angular-pubsub"
       verbose: true
+      customCommand: 'publish --access public'
     condition: |
       and(
         succeeded(),
