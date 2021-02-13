@@ -99,6 +99,7 @@ steps:
 
   - script: | # Publish a module to a github npm registry
       npm publish --access public
+    enabled: false
     displayName: Publish GitHub
     workingDirectory: "./dist/fsms-angular-pubsub"
     condition: |
