@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.23](https://github.com/FullStackMaster1/fsms-angular-pubsub/compare/v2.0.12...v2.0.23) (2021-02-13)
+
 ### [2.0.20](https://github.com/FullStackMaster1/fsms-angular-pubsub/compare/v2.0.12...v2.0.20) (2021-02-12)
 
 ### [2.0.19](https://github.com/FullStackMaster1/fsms-angular-pubsub/compare/v2.0.12...v2.0.19) (2021-02-12)
