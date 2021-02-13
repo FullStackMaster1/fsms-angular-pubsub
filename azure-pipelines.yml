@@ -7,11 +7,12 @@ strategy:
   matrix:
     node_12_x:
       node_version: 12.x
-    node_13_x:
-      node_version: 13.x
+    node_14_x:
+      node_version: 14.x
 
 variables:
   AUTH_NPMTOKEN: $(NPM_TOKEN) # Mapping secret var
+  AUTH_GHTOKEN: $(GH_TOKEN) # Mapping secret var
   IS_PULLREQUEST: $[eq(variables['Build.Reason'], 'PullRequest')]
 
 trigger:
@@ -63,7 +64,17 @@ steps:
     enabled: true
 
   # Package and deliver your code -->
-  - script: npm run release:git
+  - script: | # release git
+      export GIT_TERMINAL_PROMPT=1
+      git config --global user.email "roopkt@gmail.com"
+      git config --global user.name "rupeshtiwari"
+      npx standard-version --release-as patch
+      git add package.json
+      git commit -m "chore: bump version number"
+      git push https://rupeshtiwari:$(AUTH_GHTOKEN)@github.com/FullStackMaster1/fsms-angular-pubsub.git --follow-tags origin main
+
+  - script: npm run copyfiles
+
   - bash: | # Grab the package version
       v=`node -p "const p = require('./package.json'); p.version;"`
       echo "##vso[task.setvariable variable=packageVersion]$v"
@@ -85,4 +96,3 @@ steps:
         succeeded(),
         ne(variables['IS_PULLREQUEST'], 'true')
       )
-
