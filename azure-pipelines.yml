@@ -73,6 +73,7 @@ steps:
       npx standard-version --release-as patch
       git push --follow-tags origin main
     displayName: Git Release
+    condition:  succeeded()
 
   - script: npm run copyfiles
     displayName: Copy Files
