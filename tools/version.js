@@ -5,15 +5,15 @@
  */
 const fs = require('fs');
 const path = require('path');
-var basePackageJson = require('../package.json');
+
 var libPackageJson =path.resolve(__dirname, '../', `dist/fsms-angular-pubsub/package.json`);
 const buildId = process.argv[2],
 
-if (!args.buildId) {
+if (!buildId) {
   throw new Error('Build buildId is required');
 }
 
-const newVersion = getNewVesrion();
+const newVersion = createNewPackageVersion();
 
 updateVersion(
   libPackageJson,
@@ -22,10 +22,8 @@ updateVersion(
 
 console.log(newVersion);
 
-function getNewVesrion() {
-  let currentVersion = basePackageJson.version;
-
-  return currentVersion
+function createNewPackageVersion() {
+  return require('../package.json').version
     .split('.')
     .map((x, i) => (i == 2 ? buildId : x))
     .join('.');
