@@ -98,10 +98,17 @@ steps:
         succeeded(),
         ne(variables['IS_PULLREQUEST'], 'true')
       )
+  - task: CopyFiles@2
+    displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+    enabled: true
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)/.github'
+      TargetFolder: "./dist/fsms-angular-pubsub"
+      contents: ".npmrc"
 
   - script: | # Publish a module to a github npm registry
       npm publish --access public
-    enabled: false
+    enabled: true
     displayName: Publish GitHub
     workingDirectory: "./dist/fsms-angular-pubsub"
     condition: |
