@@ -88,6 +88,7 @@ steps:
       npm publish --access public
     enabled: true
     displayName: Publish NPM
+    workingDirectory: '$(Build.ArtifactStagingDirectory)/npm'
     condition: |
       and(
         succeeded(),
