@@ -35,12 +35,12 @@ steps:
     displayName: "New Build Number"
 
   - script: npm run test:ci # Run unit tests
-    enabled: false
+    enabled: true
     displayName: Test
 
   - task: PublishTestResults@2 # Publish test results
     displayName: Test Report
-    enabled: false
+    enabled: true
     inputs:
       testResultsFormat: "JUnit"
       testResultsFiles: "./coverage/fsms-angular-pubsub/test-report.xml"
@@ -48,7 +48,7 @@ steps:
     condition: succeededOrFailed()
 
   - task: PublishCodeCoverageResults@1 # Publish code coverage results
-    enabled: false
+    enabled: true
     displayName: Code Coverage
     inputs:
       codeCoverageTool: "Cobertura"
@@ -72,9 +72,9 @@ steps:
 
   - task: ArchiveFiles@2
     displayName: "Archive artifacts in staging directory"
-    enabled: false
+    enabled: true
     inputs:
-      rootFolderOrFile: "$(Build.ArtifactStagingDirectory)"
+      rootFolderOrFile: "$(Build.ArtifactStagingDirectory)/npm"
       includeRootFolder: false
 
   - task: PublishBuildArtifacts@1 # Publish files to Azure Pipelines
