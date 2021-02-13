@@ -7,8 +7,8 @@ strategy:
   matrix:
     node_12_x:
       node_version: 12.x
-    node_14_x:
-      node_version: 14.x
+    node_13_x:
+      node_version: 13.x # 14 is not available
 
 variables:
   AUTH_NPMTOKEN: $(NPM_TOKEN) # Mapping secret var
