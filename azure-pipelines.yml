@@ -26,9 +26,9 @@ steps:
     condition: eq(variables['CacheRestored'],False)
 
   - script: | # Update Build Number
-      export tag=$(node ./tools/version.js $(Build.BuildId) $(Build.SourceBranchName))
-      echo $tag
-      echo "##vso[build.updatebuildnumber]$tag"
+      export newBuildNumber=$(node ./tools/version.js $(Build.BuildId) $(Build.SourceBranchName))
+      echo $newBuildNumber
+      echo "##vso[build.updatebuildnumber]$newBuildNumber"
     displayName: Update Build Number
 
   - script: echo "$(Build.BuildNumber)"
@@ -86,7 +86,7 @@ steps:
 
   - script: | # Publish a module to a npm registry
       npm publish --access public
-    enabled: true
+    enabled: false
     displayName: Publish NPM
     workingDirectory: '$(Build.ArtifactStagingDirectory)/npm'
     condition: |
@@ -94,3 +94,10 @@ steps:
         succeeded(),
         ne(variables['IS_PULLREQUEST'], 'true')
       )
+
+  - script: | # Publish a module to a npm registry
+      npm config set //registry.npmjs.org/:_authToken=$(AUTH_NPMTOKEN)
+      npm config set scope "@fsms"
+      # npm config list
+      npm publish --access public
+    displayName: Publish NPM
