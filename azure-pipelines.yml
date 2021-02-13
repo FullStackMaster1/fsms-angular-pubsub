@@ -72,7 +72,7 @@ steps:
       npx standard-version --release-as patch --skip.commit
       git add package.json
       git commit -a -m "chore:bump version number"
-      git push https://rupeshtiwari:$(AUTH_GHTOKEN)@github.com/FullStackMaster1/fsms-angular-pubsub.git --follow-tags origin main
+      git push https://rupeshtiwari:$(AUTH_GHTOKEN)@github.com/FullStackMaster1/fsms-angular-pubsub.git --follow-tags
     displayName: Git Release
 
   - script: npm run copyfiles
