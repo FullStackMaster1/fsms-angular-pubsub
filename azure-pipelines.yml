@@ -98,10 +98,6 @@ steps:
       )
 
   - script: | # Publish a module to a github npm registry
-      npm config set registry=https://npm.pkg.github.com/fullstackmaster1
-      npm config set scope "@fsms"
-      # npm config list
-      # npm --version
       npm publish --access public
     displayName: Publish GitHub
     workingDirectory: "./dist/fsms-angular-pubsub"
