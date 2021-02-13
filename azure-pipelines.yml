@@ -3,6 +3,13 @@ name: Angular Pubsub Azure CI Pipeline
 pool:
   vmImage: "ubuntu-latest"
 
+strategy:
+  matrix:
+    node_12_x:
+      node_version: 12.x
+    node_13_x:
+      node_version: 13.x
+
 variables:
   AUTH_NPMTOKEN: $(NPM_TOKEN) # Mapping secret var
   IS_PULLREQUEST: $[eq(variables['Build.Reason'], 'PullRequest')]
@@ -11,6 +18,10 @@ trigger:
   - main
 
 steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: $(node_version)
+
   - task: Cache@2 # Cache Node packages on build agent
     displayName: "Cache npm Dependencies"
     inputs:
@@ -55,8 +66,7 @@ steps:
       summaryFileLocation: "./coverage/fsms-angular-pubsub/cobertura-coverage.xml"
     condition: succeededOrFailed()
 
-
-   # Package web apps -->
+    # Package web apps -->
   - script: npm run build:ci # Build Angular Project
     displayName: Build
     enabled: true
@@ -81,14 +91,14 @@ steps:
     displayName: "Publish NPM Artifact"
     inputs:
       artifactName: npm
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)/npm'
+      PathtoPublish: "$(Build.ArtifactStagingDirectory)/npm"
     enabled: true
 
   - script: | # Publish a module to a npm registry
       npm publish --access public
     enabled: false
     displayName: Publish NPM
-    workingDirectory: '$(Build.ArtifactStagingDirectory)/npm'
+    workingDirectory: "$(Build.ArtifactStagingDirectory)/npm"
     condition: |
       and(
         succeeded(),
@@ -101,7 +111,7 @@ steps:
       # npm config list
       npm publish --access public
     displayName: Publish NPM
-    workingDirectory: '$(Build.ArtifactStagingDirectory)/npm'
+    workingDirectory: "$(Build.ArtifactStagingDirectory)/npm"
     condition: |
       and(
         succeeded(),
