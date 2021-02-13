@@ -63,13 +63,15 @@ steps:
     displayName: Build
     enabled: true
 
+
   # Package and deliver your code -->
-  - script: | # release git
-      export GIT_TERMINAL_PROMPT=1
-      git config --global user.email "roopkt@gmail.com"
-      git config --global user.name "rupeshtiwari"
-      npx standard-version --release-as patch
+  # release git # export GIT_TERMINAL_PROMPT=1 You can enable the prompt by set the environment variable GIT_TERMINAL_PROMPT to 1 but during the build you can't enter the values and the build will hang.To fix the error, just add the username & password or the Personal Access Token (PAT) in the git push command:
+   - script: |
+      npx standard-version --release-as patch --skip.commit
+      git add package.json
+      git commit -a -m "chore:bump version number"
       git push https://rupeshtiwari:$(AUTH_GHTOKEN)@github.com/FullStackMaster1/fsms-angular-pubsub.git --follow-tags origin main
+    displayName: Git Release
 
   - script: npm run copyfiles
     displayName: Copy Files
