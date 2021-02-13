@@ -63,30 +63,23 @@ steps:
     displayName: Build
     enabled: true
 
-  # Package and deliver your code -->
-  # release git # export GIT_TERMINAL_PROMPT=1 You can enable the prompt by set the environment variable GIT_TERMINAL_PROMPT to 1 but during the build you can't enter the values and the build will hang.To fix the error, just add the username & password or the Personal Access Token (PAT) in the git push command:
-  - script: |
-      export GIT_TERMINAL_PROMPT=1
-      git config --global user.email "roopkt@gmail.com"
-      git config --global user.name "rupeshtiwari"
-      git remote set-url origin https://$(AUTH_GHTOKEN):x-oauth-basic@github.com/FullStackMaster1/fsms-angular-pubsub.git
-      npx standard-version --release-as patch
-      git push --follow-tags origin main
-    displayName: Git Release
-    condition:  succeeded()
-
-  - script: npm run copyfiles
-    displayName: Copy Files
+  - script: node ./tools/version.js $(Build.BuildId)
 
   - bash: | # Grab the package version
       v=`node -p "const p = require('./package.json'); p.version;"`
       echo "##vso[task.setvariable variable=packageVersion]$v"
     displayName: Package Version
 
-  - script: | # update build
-      echo "##vso[build.updatebuildnumber]$(packageVersion).$(Build.BuildId)_$(Build.SourceBranchName)"
+  - script: | # Update Build
+      echo "##vso[build.updatebuildnumber]$(packageVersion)_$(Build.SourceBranchName)"
     enabled: true
     displayName: Update Build Number
+
+  - script: npm run changelog # Change Log
+    displayName: Changelog
+
+  - script: npm run copyfiles # Copy Changelogs
+    displayName: Copy Files
 
   - script: | # Publish a module to a npm registry
       npm config set //registry.npmjs.org/:_authToken=$(AUTH_NPMTOKEN)

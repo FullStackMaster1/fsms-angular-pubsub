@@ -1,30 +1,38 @@
-const standardVersion = require("standard-version");
-const buildId = process.argv[2];
-const sourceBranchName = process.argv[3];
-// Options are the same as command line, except camelCase
-// standardVersion returns a Promise
+/**
+ * . bump the npm version using build id
+ * . publish to npm package repository
+ * . return new npm version
+ */
+const fs = require('fs');
+const path = require('path');
+var basePackageJson = require('../package.json');
+var libPackageJson =path.resolve(__dirname, '../', `dist/fsms-angular-pubsub/package.json`);
+const buildId = process.argv[2],
 
-async function execute() {
-  await standardVersion({
-    noVerify: true,
-    infile: "CHANGELOG.md",
-    silent: true,
-    bumpFiles:[
-      {
-        filename: "./projects/fsms-angular-pubsub/package.json",
-        type: "json",
-      },
-      {
-        filename: "./package.json",
-        type: "json",
-      },
-    ],
-  });
+if (!args.buildId) {
+  throw new Error('Build buildId is required');
 }
 
-execute();
+const newVersion = getNewVesrion();
 
-// standard-version is done
-console.log(
-  require("../package.json").version +"."+ buildId + "-" + sourceBranchName
+updateVersion(
+  libPackageJson,
+  newVersion
 );
+
+console.log(newVersion);
+
+function getNewVesrion() {
+  let currentVersion = basePackageJson.version;
+
+  return currentVersion
+    .split('.')
+    .map((x, i) => (i == 2 ? buildId : x))
+    .join('.');
+}
+
+function updateVersion(packageJsonFilePath,newVersion) {
+  var package = require(packageJsonFilePath);
+  package.version = newVersion;
+  fs.writeFileSync(packageJsonFilePath, JSON.stringify(package, null, 2));
+}
