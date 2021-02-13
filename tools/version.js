@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 
 var libPackageJson =path.resolve(__dirname, '../', `dist/fsms-angular-pubsub/package.json`);
-const buildId = process.argv[2],
+const buildId = process.argv[2];
 
 if (!buildId) {
   throw new Error('Build buildId is required');
