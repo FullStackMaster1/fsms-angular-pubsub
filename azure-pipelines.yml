@@ -101,3 +101,9 @@ steps:
       # npm config list
       npm publish --access public
     displayName: Publish NPM
+    workingDirectory: '$(Build.ArtifactStagingDirectory)/npm'
+    condition: |
+      and(
+        succeeded(),
+        ne(variables['IS_PULLREQUEST'], 'true')
+      )
