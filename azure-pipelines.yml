@@ -105,6 +105,9 @@ steps:
       SourceFolder: '$(Build.SourcesDirectory)/.github'
       TargetFolder: "./dist/fsms-angular-pubsub"
       contents: ".npmrc"
+  - task: npmAuthenticate@0
+    inputs:
+      workingFile: "./dist/fsms-angular-pubsub/.npmrc"
 
   - script: | # Publish a module to a github npm registry
       npm publish --access public
