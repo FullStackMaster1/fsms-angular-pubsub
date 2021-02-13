@@ -80,6 +80,8 @@ steps:
     enabled: true
     displayName: Update Build Number
 
+  - script: echo $(Build.BuildNumber)
+  
   - script: npm run changelog # Change Log
     displayName: Changelog
 
