@@ -69,7 +69,8 @@ steps:
       export GIT_TERMINAL_PROMPT=1
       git config --global user.email "roopkt@gmail.com"
       git config --global user.name "rupeshtiwari"
-      npx standard-version --release-as patch --skip.commit
+      git remote set-url origin https://$(AUTH_GHTOKEN):x-oauth-basic@github.com/FullStackMaster1/fsms-angular-pubsub.git
+      npx standard-version --release-as patch
       git push --atomic origin main --follow-tags
     displayName: Git Release
 
