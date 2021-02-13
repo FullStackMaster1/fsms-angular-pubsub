@@ -120,9 +120,5 @@ steps:
         ne(variables['IS_PULLREQUEST'], 'true')
       )
 
-  - task: CmdLine@2 # Push changes to GitHub (substitute your repo)
-    inputs:
-      script: |
-        git config --global user.email "roopkt@gmail.com"
-        git config --global user.name "rupeshtiwari"
-        git push --follow-tags origin main
+  - script: npm run release:git # Push changes to GitHub (substitute your repo)
+    displayName: Release Git
