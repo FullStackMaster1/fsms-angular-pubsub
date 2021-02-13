@@ -13,7 +13,7 @@
     "test:ci": "ng test fsms-angular-pubsub --watch=false --browsers=ChromeHeadless --code-coverage=true",
     "copyfiles": "copyfiles -f README.md CHANGELOG.md dist/fsms-angular-pubsub",
     "npmPublish": "npm publish dist/fsms-angular-pubsub --access public",
-    "release:git": "git add . package.json && git commit -m \"chore: bump version number\" && standard-version --release-as patch && git push --follow-tags origin master",
+    "release:git": "git add package.json && git commit -m \"chore: bump version number\" && standard-version --release-as patch && git push --follow-tags origin master",
     "postinstall": "ngcc"
   },
   "private": true,

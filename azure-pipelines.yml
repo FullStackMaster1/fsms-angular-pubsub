@@ -63,67 +63,26 @@ steps:
     enabled: true
 
   # Package and deliver your code -->
+  - script: npm run release:git
+  - bash: | # Grab the package version
+      v=`node -p "const p = require('./package.json'); p.version;"`
+      echo "##vso[task.setvariable variable=packageVersion]$v"
 
-  - task: CopyFiles@2
-    displayName: "Copy to artifacts staging directory"
+  - script: | # update build
+      echo "##vso[build.updatebuildnumber]$(packageVersion).$(Build.BuildId)_$(Build.SourceBranchName)"
     enabled: true
-    inputs:
-      SourceFolder: "./dist/fsms-angular-pubsub"
-      TargetFolder: "$(Build.ArtifactStagingDirectory)/npm"
-
-  - task: ArchiveFiles@2
-    displayName: "Archive artifacts in staging directory"
-    enabled: true
-    inputs:
-      rootFolderOrFile: "$(Build.ArtifactStagingDirectory)/npm"
-      includeRootFolder: false
-
-  - task: PublishBuildArtifacts@1 # Publish files to Azure Pipelines
-    displayName: "Publish NPM Artifact"
-    inputs:
-      artifactName: npm
-      PathtoPublish: "$(Build.ArtifactStagingDirectory)/npm"
-    enabled: true
-
-  - script: | # Publish a module to a npm registry
-      npm publish --access public
-    enabled: false
-    displayName: Publish NPM
-    workingDirectory: "$(Build.ArtifactStagingDirectory)/npm"
-    condition: |
-      and(
-        succeeded(),
-        ne(variables['IS_PULLREQUEST'], 'true')
-      )
-
-  - script: | # Update Build Number
-      export newBuildNumber=$(node ./tools/version.js $(Build.BuildId) $(Build.SourceBranchName))
-      echo $newBuildNumber
-      echo "##vso[build.updatebuildnumber]$newBuildNumber"
-    displayName: Update Build Number
-
-  - script: echo "$(Build.BuildNumber)"
-    displayName: "New Build Number"
 
   - script: | # Publish a module to a npm registry
       npm config set //registry.npmjs.org/:_authToken=$(AUTH_NPMTOKEN)
       npm config set scope "@fsms"
       # npm config list
       # npm --version
-      npm version patch --force
       npm publish --access public
     displayName: Publish NPM
-    workingDirectory: "$(Build.ArtifactStagingDirectory)/npm"
+    workingDirectory: "./dist/fsms-angular-pubsub"
     condition: |
       and(
         succeeded(),
         ne(variables['IS_PULLREQUEST'], 'true')
       )
 
-  - task: CmdLine@2 # Push changes to GitHub (substitute your repo)
-    inputs:
-      script: |
-        export GIT_TERMINAL_PROMPT=1
-        git config --global user.email "roopkt@gmail.com"
-        git config --global user.name "rupeshtiwari"
-        git push --follow-tags origin main
