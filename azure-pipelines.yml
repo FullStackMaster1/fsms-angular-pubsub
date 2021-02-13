@@ -30,7 +30,7 @@ steps:
     displayName: Package Version
 
   - script: | # Update Build
-      echo "##vso[build.updatebuildnumber]$(packageVersion)_$(Build.SourceBranchName)"
+      echo "##vso[build.updatebuildnumber]$(packageVersion)"
     enabled: true
     displayName: Update Build Number
     
