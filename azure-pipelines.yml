@@ -85,6 +85,7 @@ steps:
   - script: | # update build
       echo "##vso[build.updatebuildnumber]$(packageVersion).$(Build.BuildId)_$(Build.SourceBranchName)"
     enabled: true
+    displayName: Update Build Number
 
   - script: | # Publish a module to a npm registry
       npm config set //registry.npmjs.org/:_authToken=$(AUTH_NPMTOKEN)
