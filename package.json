@@ -11,7 +11,7 @@
     "clean": "rimraf dist",
     "build:ci": "run-s clean build:prod copyfiles",
     "test:ci": "ng test fsms-angular-pubsub --watch=false --browsers=ChromeHeadless --code-coverage=true",
-    "copyfiles": "copyfiles -f README.md .npmrc CHANGELOG.md dist/fsms-angular-pubsub",
+    "copyfiles": "copyfiles -f README.md CHANGELOG.md dist/fsms-angular-pubsub",
     "npmPublish": "npm publish dist/fsms-angular-pubsub --access public",
     "postinstall": "ngcc"
   },
