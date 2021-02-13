@@ -69,15 +69,15 @@ steps:
       git config --global user.email "roopkt@gmail.com"
       git config --global user.name "rupeshtiwari"
       npx standard-version --release-as patch
-      git add package.json
-      git commit -m "chore: bump version number"
       git push https://rupeshtiwari:$(AUTH_GHTOKEN)@github.com/FullStackMaster1/fsms-angular-pubsub.git --follow-tags origin main
 
   - script: npm run copyfiles
+    displayName: Copy Files
 
   - bash: | # Grab the package version
       v=`node -p "const p = require('./package.json'); p.version;"`
       echo "##vso[task.setvariable variable=packageVersion]$v"
+    displayName: Package Version
 
   - script: | # update build
       echo "##vso[build.updatebuildnumber]$(packageVersion).$(Build.BuildId)_$(Build.SourceBranchName)"
