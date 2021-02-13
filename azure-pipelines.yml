@@ -14,7 +14,7 @@ variables:
   AUTH_NPMTOKEN: $(NPM_TOKEN) # Mapping secret var
   AUTH_GHTOKEN: $(GH_TOKEN) # Mapping secret var
   IS_PULLREQUEST: $[eq(variables['Build.Reason'], 'PullRequest')]
-  NPM_CACHE_DIR: $(Pipeline.Workspace)/.npm
+  NPM_CACHE_DIR: $(PIPELINE_CACHE_DIR)
 
 trigger:
   - main
