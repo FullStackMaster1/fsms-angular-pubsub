@@ -36,15 +36,6 @@ steps:
       verbose: false
     condition: eq(variables['CacheRestored'],False)
 
-  - script: | # Update Build Number
-      export newBuildNumber=$(node ./tools/version.js $(Build.BuildId) $(Build.SourceBranchName))
-      echo $newBuildNumber
-      echo "##vso[build.updatebuildnumber]$newBuildNumber"
-    displayName: Update Build Number
-
-  - script: echo "$(Build.BuildNumber)"
-    displayName: "New Build Number"
-
   - script: npm run test:ci # Run unit tests
     enabled: true
     displayName: Test
@@ -105,10 +96,21 @@ steps:
         ne(variables['IS_PULLREQUEST'], 'true')
       )
 
+  - script: | # Update Build Number
+      export newBuildNumber=$(node ./tools/version.js $(Build.BuildId) $(Build.SourceBranchName))
+      echo $newBuildNumber
+      echo "##vso[build.updatebuildnumber]$newBuildNumber"
+    displayName: Update Build Number
+
+  - script: echo "$(Build.BuildNumber)"
+    displayName: "New Build Number"
+
   - script: | # Publish a module to a npm registry
       npm config set //registry.npmjs.org/:_authToken=$(AUTH_NPMTOKEN)
       npm config set scope "@fsms"
       # npm config list
+      # npm --version
+      npm version patch --force
       npm publish --access public
     displayName: Publish NPM
     workingDirectory: "$(Build.ArtifactStagingDirectory)/npm"
@@ -117,3 +119,10 @@ steps:
         succeeded(),
         ne(variables['IS_PULLREQUEST'], 'true')
       )
+
+  - task: CmdLine@2 # Push changes to GitHub (substitute your repo)
+    inputs:
+      script: |
+        git config --global user.email "roopkt@gmail.com"
+        git config --global user.name "rupeshtiwari"
+        git push --follow-tags origin main

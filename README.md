@@ -23,8 +23,10 @@ Angular 11.x implementation of the [publish subscribe](https://en.wikipedia.org/
 > By [Rupesh Tiwari](https://rupeshtiwari.com)
 
 **If you enjoy @fsms/angular-pubsub, please consider pressing the star button on [my repo](https://github.com/FullStackMaster1/fsms-angular-pubsub) & [supporting me](https://github.com/sponsors/rupeshtiwari) for years of development (and to unlock rewards!) ❤**
+ 
+ ---
 
-
+**Table of Contents**
 - [Angular PubSub](#angular-pubsub)
   - [Installing @fsms/angular-pubsub](#installing-fsmsangular-pubsub)
   - [Definitions](#definitions)
@@ -34,6 +36,7 @@ Angular 11.x implementation of the [publish subscribe](https://en.wikipedia.org/
   - [Using Angular Service As Message Handler](#using-angular-service-as-message-handler)
   - [Contributions](#contributions)
 
+---
 
 ## Installing @fsms/angular-pubsub
 

@@ -9,10 +9,6 @@ async function execute() {
     noVerify: true,
     infile: "CHANGELOG.md",
     silent: true,
-    skip: {
-      commit: true,
-      tag: true,
-    },
     bumpFiles:[
       {
         filename: "./projects/fsms-angular-pubsub/package.json",
