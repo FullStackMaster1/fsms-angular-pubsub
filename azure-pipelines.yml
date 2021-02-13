@@ -99,7 +99,7 @@ steps:
         ne(variables['IS_PULLREQUEST'], 'true')
       )
   - task: CopyFiles@2
-    displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+    displayName: 'Copy NPMRC'
     enabled: true
     inputs:
       SourceFolder: '$(Build.SourcesDirectory)/.github'
