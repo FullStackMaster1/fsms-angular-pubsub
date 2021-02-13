@@ -4,7 +4,7 @@
 Angular 11.x implementation of the [publish subscribe](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) Pattern.
 
 <!-- Angular Badges-->
-![Angular Version](https://img.shields.io/github/package-json/dependency-version/fullstackmaster1/fsms-angular-pubsub/@angular/core) ![RxJS](https://img.shields.io/github/package-json/dependency-version/fullstackmaster1/fsms-angular-pubsub/rxjs)
+![npm](https://img.shields.io/npm/v/@fsms/angular-pubsub?color=dark&label=npm%20package) ![Angular Version](https://img.shields.io/github/package-json/dependency-version/fullstackmaster1/fsms-angular-pubsub/@angular/core) ![RxJS](https://img.shields.io/github/package-json/dependency-version/fullstackmaster1/fsms-angular-pubsub/rxjs)
 <!-- Angular Badges-->
 
 <!-- Azure Badges-->
