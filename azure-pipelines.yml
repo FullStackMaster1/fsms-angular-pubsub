@@ -24,6 +24,16 @@ steps:
     inputs:
       versionSpec: $(node_version)
 
+  - bash: | # Grab the package version
+      v=`node -p "const p = require('./package.json'); p.version;"`
+      echo "##vso[task.setvariable variable=packageVersion]$v"
+    displayName: Package Version
+
+  - script: | # Update Build
+      echo "##vso[build.updatebuildnumber]$(packageVersion)_$(Build.SourceBranchName)"
+    enabled: true
+    displayName: Update Build Number
+    
   - task: Cache@2 # Cache Node packages on build agent
     displayName: "Cache npm Dependencies"
     inputs:
@@ -67,15 +77,7 @@ steps:
   - script: node ./tools/version.js $(Build.BuildId)
     displayName: Update Version
 
-  - bash: | # Grab the package version
-      v=`node -p "const p = require('./package.json'); p.version;"`
-      echo "##vso[task.setvariable variable=packageVersion]$v"
-    displayName: Package Version
 
-  - script: | # Update Build
-      echo "##vso[build.updatebuildnumber]$(packageVersion)_$(Build.SourceBranchName)"
-    enabled: true
-    displayName: Update Build Number
 
   - script: npm run changelog # Change Log
     displayName: Changelog
