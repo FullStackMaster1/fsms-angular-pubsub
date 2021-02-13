@@ -14,6 +14,7 @@ variables:
   AUTH_NPMTOKEN: $(NPM_TOKEN) # Mapping secret var
   AUTH_GHTOKEN: $(GH_TOKEN) # Mapping secret var
   IS_PULLREQUEST: $[eq(variables['Build.Reason'], 'PullRequest')]
+  NPM_CACHE_DIR: $(Pipeline.Workspace)/.npm
 
 trigger:
   - main
@@ -27,7 +28,7 @@ steps:
     displayName: "Cache npm Dependencies"
     inputs:
       key: "**/package-lock.json, !**/node_modules/**/package-lock.json, !**/.*/**/package-lock.json"
-      path: "$(Build.SourcesDirectory)/node_modules"
+      path: $(NPM_CACHE_DIR)
       cacheHitVar: CacheRestored
 
   - task: Npm@1 # Install npm packages on your build agent

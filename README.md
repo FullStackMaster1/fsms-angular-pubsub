@@ -4,11 +4,11 @@
 Angular 11.x implementation of the [publish subscribe](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) Pattern.
 
 <!-- Angular Badges-->
-![GitHub package.json dependency version (subfolder of monorepo)](https://img.shields.io/github/package-json/dependency-version/fullstackmaster1/fsms-angular-pubsub/@angular/core) [![npm version](https://badge.fury.io/js/%40fsms%2Fangular-pubsub.svg)](https://badge.fury.io/js/%40fsms%2Fangular-pubsub) 
+![Angular Version](https://img.shields.io/github/package-json/dependency-version/fullstackmaster1/fsms-angular-pubsub/@angular/core) ![RxJS](https://img.shields.io/github/package-json/dependency-version/fullstackmaster1/fsms-angular-pubsub/rxjs)
 <!-- Angular Badges-->
 
 <!-- Azure Badges-->
- [![Build Status](https://dev.azure.com/fullstackmaster/open-source/_apis/build/status/FullStackMaster1.fsms-angular-pubsub?branchName=main)](https://dev.azure.com/fullstackmaster/open-source/_build/latest?definitionId=1&branchName=main) ![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/fullstackmaster/open-source/1)
+ [![Build Status](https://dev.azure.com/fullstackmaster-org/FSMS-OPENSOURCE/_apis/build/status/FullStackMaster1.fsms-angular-pubsub?branchName=main)](https://dev.azure.com/fullstackmaster-org/FSMS-OPENSOURCE/_build/latest?definitionId=5&branchName=main) ![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/fullstackmaster-org/fsms-opensource/5)
 <!-- Azure Badges-->
 
 <!-- Statistics Badges-->
