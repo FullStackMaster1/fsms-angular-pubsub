@@ -21,6 +21,7 @@ Angular 11.x implementation of the [publish subscribe](https://en.wikipedia.org/
 
 
 > By [Rupesh Tiwari](https://rupeshtiwari.com)
+<img src="https://i.imgur.com/9OCLciM.png" width="270" height="65">
 
 **If you enjoy @fsms/angular-pubsub, please consider pressing the star button on [my repo](https://github.com/FullStackMaster1/fsms-angular-pubsub) & [supporting me](https://github.com/sponsors/rupeshtiwari) for years of development (and to unlock rewards!) ❤**
  
