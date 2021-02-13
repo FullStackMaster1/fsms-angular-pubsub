@@ -70,8 +70,6 @@ steps:
       git config --global user.email "roopkt@gmail.com"
       git config --global user.name "rupeshtiwari"
       npx standard-version --release-as patch --skip.commit
-      git add package.json
-      git commit -am "chore:bump version number"
       git push --atomic origin main --follow-tags
     displayName: Git Release
 
