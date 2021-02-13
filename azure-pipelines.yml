@@ -66,7 +66,7 @@ steps:
     displayName: Build
     enabled: true
 
-
+    # Update Package JSON Version & Build Number  -->
   - script: node ./tools/version.js $(Build.BuildId)
     displayName: Update Version
 
@@ -85,7 +85,8 @@ steps:
 
   - script: npm run copyfiles # Copy Changelogs
     displayName: Copy Files
-
+  
+  # Publishing NPM module to Registry  -->
   - script: | # Publish a module to a npm registry
       npm config set //registry.npmjs.org/:_authToken=$(AUTH_NPMTOKEN)
       npm config set scope "@fsms"
