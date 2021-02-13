@@ -71,8 +71,7 @@ steps:
       git config --global user.name "rupeshtiwari"
       git remote set-url origin https://$(AUTH_GHTOKEN):x-oauth-basic@github.com/FullStackMaster1/fsms-angular-pubsub.git
       npx standard-version --release-as patch
-      git commit -m "chore:bump version number"
-      git push --follow-tags origin main
+      git push --follow-tags origin heads/main
     displayName: Git Release
 
   - script: npm run copyfiles
