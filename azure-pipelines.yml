@@ -7,8 +7,8 @@ strategy:
   matrix:
     node_12_x:
       node_version: 12.x
-    node_13_x:
-      node_version: 13.x # 14 is not available
+    # node_14_x:
+    # node_version: 14.x
 
 variables:
   AUTH_NPMTOKEN: $(NPM_TOKEN) # Mapping secret var
@@ -71,7 +71,8 @@ steps:
       git config --global user.name "rupeshtiwari"
       git remote set-url origin https://$(AUTH_GHTOKEN):x-oauth-basic@github.com/FullStackMaster1/fsms-angular-pubsub.git
       npx standard-version --release-as patch
-      git push --atomic origin main --follow-tags
+      git commit -m "chore:bump version number"
+      git push --follow-tags origin main
     displayName: Git Release
 
   - script: npm run copyfiles
