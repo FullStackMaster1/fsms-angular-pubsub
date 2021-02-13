@@ -106,6 +106,7 @@ steps:
       TargetFolder: "./dist/fsms-angular-pubsub"
       contents: ".npmrc"
   - task: npmAuthenticate@0
+    enabled: false
     inputs:
       workingFile: "./dist/fsms-angular-pubsub/.npmrc"
 
