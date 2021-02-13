@@ -67,17 +67,20 @@ steps:
     enabled: true
 
     # Update Package JSON Version & Build Number  -->
-  - script: node ./tools/version.js $(Build.BuildId)
+  - script: |
+      export num=$(node ./tools/version.js $(Build.BuildId))
+      echo "##vso[build.updatebuildnumber]$num"
     displayName: Update Version
 
   - bash: | # Grab the package version
       v=`node -p "const p = require('./package.json'); p.version;"`
       echo "##vso[task.setvariable variable=packageVersion]$v"
     displayName: Package Version
+    enabled: false
 
   - script: | # Update Build
       echo "##vso[build.updatebuildnumber]$(packageVersion)"
-    enabled: true
+    enabled: false
     displayName: Update Build Number
 
   - script: echo $(Build.BuildNumber)
