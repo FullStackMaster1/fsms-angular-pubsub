@@ -7,5 +7,21 @@
   },
   "dependencies": {
     "tslib": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=10.9.0 <15.0.0",
+    "npm": ">=5.3.0",
+    "yarn": ">=1.13.0 <2.0.0"
+  },
+  "keywords": [
+    "angular",
+    "pubsub",
+    "rxjs"
+  ],
+  "author": "Rupesh Tiwari <fullstackmaster1@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FullStackMaster1/fsms-angular-pubsub.git"
   }
 }

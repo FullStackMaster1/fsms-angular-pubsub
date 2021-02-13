@@ -60,8 +60,8 @@
     "yarn": ">=1.13.0 <2.0.0"
   },
   "keywords": [
-    "ngrx",
     "angular",
+    "pubsub",
     "rxjs"
   ],
   "author": "Rupesh Tiwari <fullstackmaster1@gmail.com>",
