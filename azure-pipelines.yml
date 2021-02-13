@@ -24,6 +24,9 @@ steps:
     inputs:
       versionSpec: $(node_version)
 
+  - script: node ./tools/version.js $(Build.BuildId)
+    displayName: Update Version
+
   - bash: | # Grab the package version
       v=`node -p "const p = require('./package.json'); p.version;"`
       echo "##vso[task.setvariable variable=packageVersion]$v"
@@ -74,8 +77,6 @@ steps:
     displayName: Build
     enabled: true
 
-  - script: node ./tools/version.js $(Build.BuildId)
-    displayName: Update Version
 
 
 
