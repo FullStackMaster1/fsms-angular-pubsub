@@ -115,7 +115,7 @@ bootstrap: [RootComponent]
 
 ```
 
-2. **Injecting `PubsubService` as dependency in component** 
+2. **Injecting `PubsubService` as dependency in the component** 
 
 Go to desired component and subscribe to a message. 
 

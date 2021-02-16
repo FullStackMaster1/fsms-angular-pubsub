@@ -17,7 +17,7 @@ variables:
   NPM_CACHE_DIR: $(Pipeline.Workspace)/.npm
 
 trigger:
-  - main
+  - releases/*
 
 steps:
   - task: NodeTool@0
