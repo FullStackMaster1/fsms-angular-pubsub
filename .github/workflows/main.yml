@@ -3,7 +3,7 @@ name: CI and CD
 on:
   push:
     branches:
-      - "main"
+      - "releases/2.0*"
 
 jobs:
   build:
