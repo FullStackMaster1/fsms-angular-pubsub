@@ -1,4 +1,4 @@
-import { IHandleMessage } from './contracts/definitions';
+import { IHandleMessage } from '../contracts/definitions';
 import { IMessageSchema } from './message';
 import { PubsubService } from './pubsub.service';
 import { getPubsubDecoratorMetadata } from './pubsub-metadata';

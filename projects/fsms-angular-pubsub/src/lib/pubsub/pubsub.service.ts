@@ -5,10 +5,10 @@ import {
   IMessageHandlerContext,
   Logger,
   PubsubSubscription,
-} from './contracts/definitions';
+} from '../contracts/definitions';
 import { IMessage } from './message';
 import { SubscribeOptions } from './subscribe-options';
-import { TracingService } from './tracing.service';
+import { TracingService } from '../tracing.service';
 
 @Injectable()
 export class PubsubService implements IMessageHandlerContext {

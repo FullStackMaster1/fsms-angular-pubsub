@@ -12,7 +12,7 @@ export class SubmitOrderComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  placeOrder($event: KeyboardEvent) {
+  placeOrder($event: MouseEvent) {
     $event.preventDefault();
     this.pubsubService.publish(new PlaceOrder('20 Oranges'));
   }

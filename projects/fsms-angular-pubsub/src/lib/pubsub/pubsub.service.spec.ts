@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { Observable, Subscriber } from 'rxjs';
-import { PubsubModule } from '../public-api';
+import { PubsubModule } from '@fsms/angular-pubsub';
 import { PubsubService } from './pubsub.service';
 
 describe('PubSubService', () => {

@@ -1,5 +1,8 @@
-import { CallbackOptions, IHandleMessage } from '@fsms/angular-pubsub';
-import { RegisterHandler } from 'projects/fsms-angular-pubsub/src/lib/pubsub-decorator';
+import {
+  CallbackOptions,
+  IHandleMessage,
+  RegisterHandler,
+} from '@fsms/angular-pubsub';
 import { OrderCreated } from 'src/app/messages/order-created-message';
 import { PlaceOrder } from '../messages/place-order-message';
 

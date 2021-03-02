@@ -29,7 +29,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((s) => s.unsubscribe());
   }
 
-  orderPlaced($event: KeyboardEvent) {
+  orderPlaced($event: MouseEvent) {
     $event.preventDefault();
     this.pubsubService.publish(
       new OrderCreated({
@@ -38,11 +38,11 @@ export class AppComponent implements OnInit, OnDestroy {
       })
     );
   }
-  orderPaid($event: KeyboardEvent) {
+  orderPaid($event: MouseEvent) {
     $event.preventDefault();
     this.pubsubService.publish(new OrderReady('20 USD'));
   }
-  orderShipped($event: KeyboardEvent) {
+  orderShipped($event: MouseEvent) {
     $event.preventDefault();
     this.pubsubService.publish(new OrderShipped('CA, USA'));
   }

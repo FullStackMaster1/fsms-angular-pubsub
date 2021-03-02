@@ -10,9 +10,9 @@ import {
   _ROOT_PUBSUBS,
 } from './tokens';
 import { PubsubSources } from './pubsub-sources';
-import { Logger } from './contracts/definitions';
-import { DefaultLogger } from './utils/default-logger';
-import { TracingService } from './tracing.service';
+import { Logger } from '../contracts/definitions';
+import { DefaultLogger } from '../utils/default-logger';
+import { TracingService } from '../tracing.service';
 
 @NgModule()
 export class PubsubModule {

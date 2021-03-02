@@ -1,4 +1,4 @@
-import { IMessage } from '../message';
+import { IMessage } from '../pubsub/message';
 
 export interface IHandleMessage<M extends IMessage> {
   handle({ message }: CallbackOptions<M>): void;
