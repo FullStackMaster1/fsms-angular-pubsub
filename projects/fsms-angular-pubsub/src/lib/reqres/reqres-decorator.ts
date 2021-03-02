@@ -1,6 +1,4 @@
 // tslint:disable: ban-types
-import { DEFAULT_PUBSUB_CONFIG, PubsubConfig } from './model';
-import { METADATA_KEY } from './pubsub-tokens';
 
 export function RegisterHandler(config: PubsubConfig): ClassDecorator {
   return <T extends Object>(target: T) => {

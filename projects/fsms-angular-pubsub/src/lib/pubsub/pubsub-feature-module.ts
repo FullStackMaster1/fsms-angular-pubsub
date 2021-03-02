@@ -1,6 +1,6 @@
 import { Inject, NgModule } from '@angular/core';
 import { PubsubSources } from './pubsub-sources';
-import { FEATURE_PUBSUBS } from './tokens';
+import { FEATURE_PUBSUBS } from './pubsub-tokens';
 
 @NgModule({})
 export class PubsubFeatureModule {

@@ -1,4 +1,19 @@
-import { IMessage } from '../pubsub/message';
+import { Type } from '@angular/core';
+import { IMessage } from './message';
+
+/**
+ * Configures an pubsub created by `createPubsub`.
+ */
+export interface PubsubConfig {
+  /**
+   * List of messages to subscribe.
+   */
+  messages: Type<IMessage>[];
+  /**
+   * Determines if the pubsub will tracing messages or not.
+   */
+  useTracing?: boolean;
+}
 
 export interface IHandleMessage<M extends IMessage> {
   handle({ message }: CallbackOptions<M>): void;

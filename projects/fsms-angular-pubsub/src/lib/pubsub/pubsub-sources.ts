@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { IHandleMessage, PubsubSubscription } from '@fsms/angular-pubsub';
-import { IMessageSchema } from './message';
+import { IMessageSchema } from '../contracts/message';
 import { getPubsubDecoratorMetadata } from './pubsub-metadata';
 import { PubsubService } from './pubsub.service';
 

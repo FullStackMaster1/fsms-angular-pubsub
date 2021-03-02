@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Logger } from '../contracts/definitions';
+import { Logger } from '../contracts/pubsub-definitions';
 
 
 @Injectable()

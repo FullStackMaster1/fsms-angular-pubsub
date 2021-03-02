@@ -5,8 +5,8 @@ import {
   IMessageHandlerContext,
   Logger,
   PubsubSubscription,
-} from '../contracts/definitions';
-import { IMessage } from './message';
+} from '../contracts/pubsub-definitions';
+import { IMessage } from '../contracts/message';
 import { SubscribeOptions } from './subscribe-options';
 import { TracingService } from '../tracing.service';
 
