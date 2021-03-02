@@ -2,9 +2,9 @@ import { Type } from '@angular/core';
 import { IMessage } from '@fsms/angular-pubsub';
 
 /**
- * Configures an pubsub created by `createPubsub`.
+ * Configures an pubsub created by `createReqRes`.
  */
-export interface PubsubConfig {
+export interface ReqResConfig {
   /**
    * List of messages to subscribe.
    */

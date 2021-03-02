@@ -20,3 +20,4 @@ export const FEATURE_PUBSUBS = new InjectionToken<any[][]>(
 );
 
 export const METADATA_KEY = '__@fsms/pubsub__';
+export const ROOT_PUBSUB_INIT = '@fsms/pubsub/init';
