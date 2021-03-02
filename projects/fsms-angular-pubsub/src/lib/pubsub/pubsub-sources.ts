@@ -1,9 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
+import { IHandleMessage, PubsubSubscription } from '@fsms/angular-pubsub';
+import { IMessageSchema } from './message';
+import { getPubsubDecoratorMetadata } from './pubsub-metadata';
+import { PubsubService } from './pubsub.service';
 
 @Injectable()
-export class PubsubSources {
-  constructor() {}
+export class PubsubSources implements OnDestroy {
+  constructor(private readonly pubsubService: PubsubService) {}
+
   private allPubsubInstances = [];
+
+  private subscriptions: PubsubSubscription[] = [];
 
   addPubsub(pubsubInstance: any): void {
     this.allPubsubInstances.push(pubsubInstance);
@@ -15,5 +22,26 @@ export class PubsubSources {
 
   getAllPubsubInstances() {
     return this.allPubsubInstances;
+  }
+
+  subscribe() {
+    const allPubsubInstances = this.getAllPubsubInstances();
+
+    allPubsubInstances.forEach((h: IHandleMessage<any>) => {
+      const z = getPubsubDecoratorMetadata(h);
+
+      z.messages.forEach((m: IMessageSchema) => {
+        this.subscriptions.push(
+          this.pubsubService.subscribe({
+            messageType: m.messageType,
+            callback: h.handle.bind(h) as any,
+          })
+        );
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((s) => s.unsubscribe());
   }
 }

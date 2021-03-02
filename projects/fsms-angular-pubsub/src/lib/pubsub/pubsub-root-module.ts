@@ -1,7 +1,6 @@
 import { Inject, NgModule } from '@angular/core';
-import { PubsubService } from './pubsub.service';
-import { subscribePubsubs } from './pubsub-resolver';
 import { PubsubSources } from './pubsub-sources';
+import { PubsubService } from './pubsub.service';
 import { ROOT_PUBSUBS } from './tokens';
 
 export const ROOT_PUBSUB_INIT = '@fsms/pubsub/init';
@@ -14,7 +13,7 @@ export class PubsubRootModule {
     @Inject(ROOT_PUBSUBS) rootPubsubs: any[]
   ) {
     sources.addPubsubs(rootPubsubs);
-    subscribePubsubs(sources.getAllPubsubInstances(), pubsubService);
+    sources.subscribe();
     pubsubService.publish({ messageType: ROOT_PUBSUB_INIT });
   }
 }
