@@ -1,16 +1,16 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { IHandleMessage, ReqresSubscription } from '@fsms/angular-reqres';
-import { ReqresService } from '../reqres/reqres.service';
+
 import { IMessageSchema } from '../contracts/message';
+import { PubsubService } from '../pubsub/pubsub.service';
 
 
 @Injectable()
 export class ReqResSources implements OnDestroy {
-  constructor(private readonly reqresService: ReqresService) {}
+  constructor(private readonly reqresService: PubsubService) {}
 
   private allReqresInstances = [];
 
-  private subscriptions: ReqresSubscription[] = [];
+ // private subscriptions: ReqresSubscription[] = [];
 
   addReqRes(reqresInstance: any): void {
     this.allReqresInstances.push(reqresInstance);
@@ -27,21 +27,21 @@ export class ReqResSources implements OnDestroy {
   subscribe() {
     const allReqresInstances = this.getAllReqresInstances();
 
-    allReqresInstances.forEach((h: IHandleMessage<any>) => {
-      const z = getReqresDecoratorMetadata(h);
+    // allReqresInstances.forEach((h: IHandleMessage<any>) => {
+    //   const z = getReqresDecoratorMetadata(h);
 
-      z.messages.forEach((m: IMessageSchema) => {
-        this.subscriptions.push(
-          this.reqresService.subscribe({
-            messageType: m.messageType,
-            callback: h.handle.bind(h) as any,
-          })
-        );
-      });
-    });
+    //   z.messages.forEach((m: IMessageSchema) => {
+    //     this.subscriptions.push(
+    //       this.reqresService.subscribe({
+    //         messageType: m.messageType,
+    //         callback: h.handle.bind(h) as any,
+    //       })
+    //     );
+    //   });
+    // });
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach((s) => s.unsubscribe());
+ //   this.subscriptions.forEach((s) => s.unsubscribe());
   }
 }

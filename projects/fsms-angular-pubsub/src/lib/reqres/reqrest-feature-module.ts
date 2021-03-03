@@ -3,7 +3,7 @@ import {  ReqResSources } from './reqres-sources';
 import { FEATURE_REQRES } from './reqres-tokens';
 
 @NgModule({})
-export class PubsubFeatureModule {
+export class ReqresFeatureModule {
   constructor(
     sources: ReqResSources,
     @Inject(FEATURE_REQRES) reqresSourceGroups: any[][]

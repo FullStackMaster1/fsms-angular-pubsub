@@ -10,7 +10,7 @@ import {
   _ROOT_PUBSUBS,
 } from './pubsub-tokens';
 import { PubsubSources } from './pubsub-sources';
-import { Logger } from '../contracts/pubsub-definitions';
+import { Logger } from '../contracts/logger';
 import { DefaultLogger } from '../utils/default-logger';
 import { TracingService } from '../tracing.service';
 

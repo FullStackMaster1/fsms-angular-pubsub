@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { PubsubModule } from '@fsms/angular-pubsub';
-import { PubsubService } from './pubsub.service';
+import { PubsubService } from '../pubsub.service';
 
 describe('PubSubService', () => {
   let service: PubsubService;

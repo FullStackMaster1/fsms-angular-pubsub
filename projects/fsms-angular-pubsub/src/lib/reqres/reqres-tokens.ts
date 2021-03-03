@@ -6,10 +6,10 @@ export const _ROOT_REQRES_GUARD = new InjectionToken<void>(
 export const USER_PROVIDED_REQRES = new InjectionToken<Type<any>[][]>(
   '@fsms/reqres User Provided ReqRes'
 );
-export const _ROOT_REQRES = new InjectionToken<Type<any>[]>(
+export const _ROOT_REQRES = new InjectionToken(
   '@fsms/reqres Internal Root ReqRes'
 );
-export const ROOT_REQRES = new InjectionToken<Type<any>[]>(
+export const ROOT_REQRES = new InjectionToken(
   '@fsms/reqres Root ReqRes'
 );
 export const _FEATURE_REQRES = new InjectionToken<Type<any>[]>(

@@ -3,9 +3,9 @@ import { ReplaySubject, Subscription } from 'rxjs';
 import {
   CallbackOptions,
   IMessageHandlerContext,
-  Logger,
   PubsubSubscription,
 } from '../contracts/pubsub-definitions';
+import { Logger } from "../contracts/logger";
 import { IMessage } from '../contracts/message';
 import { SubscribeOptions } from './subscribe-options';
 import { TracingService } from '../tracing.service';
