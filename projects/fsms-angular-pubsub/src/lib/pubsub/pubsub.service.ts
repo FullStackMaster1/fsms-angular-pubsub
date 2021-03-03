@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject, Subscription } from 'rxjs';
+import { IMessage } from '../contracts/message';
 import {
   CallbackOptions,
   IMessageHandlerContext,
   PubsubSubscription,
 } from '../contracts/pubsub-definitions';
-import { Logger } from "../contracts/logger";
-import { IMessage } from '../contracts/message';
+import { TracingService } from '../utils/tracing.service';
 import { SubscribeOptions } from './subscribe-options';
-import { TracingService } from '../tracing.service';
 
 @Injectable()
 export class PubsubService implements IMessageHandlerContext {
@@ -17,6 +16,7 @@ export class PubsubService implements IMessageHandlerContext {
   static ServiceName = 'PubSub Service';
   private map = new Map<string, ReplaySubject<CallbackOptions<IMessage>>>();
   private subscriptions: Subscription[] = [];
+
 
   subscribe({
     messageType,

@@ -1,11 +1,11 @@
 import { Inject, NgModule } from '@angular/core';
-import {  ReqResSources } from './reqres-sources';
+import {  ReqresSources } from './reqres-sources';
 import { FEATURE_REQRES } from './reqres-tokens';
 
 @NgModule({})
 export class ReqresFeatureModule {
   constructor(
-    sources: ReqResSources,
+    sources: ReqresSources,
     @Inject(FEATURE_REQRES) reqresSourceGroups: any[][]
   ) {
     reqresSourceGroups.forEach((group) =>

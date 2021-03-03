@@ -27,14 +27,14 @@ export class PubsubSources implements OnDestroy {
   subscribe() {
     const allPubsubInstances = this.getAllPubsubInstances();
 
-    allPubsubInstances.forEach((h: IHandleMessage<any>) => {
-      const z = getPubsubDecoratorMetadata(h);
+    allPubsubInstances.forEach((handlerInstance: IHandleMessage<any>) => {
+      const z = getPubsubDecoratorMetadata(handlerInstance);
 
       z.messages.forEach((m: IMessageSchema) => {
         this.subscriptions.push(
           this.pubsubService.subscribe({
             messageType: m.messageType,
-            callback: h.handle.bind(h) as any,
+            callback: handlerInstance.handle.bind(handlerInstance) as any,
           })
         );
       });

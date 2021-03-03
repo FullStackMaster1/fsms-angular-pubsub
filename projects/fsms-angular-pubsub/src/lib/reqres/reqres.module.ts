@@ -1,29 +1,18 @@
 import { Injector, ModuleWithProviders, NgModule, Type } from '@angular/core';
-import { Logger } from '../contracts/Logger';
+import { Logger } from '../contracts/logger';
+import { ReqresOptions } from './req-res-definitions';
 import { PubsubService } from '../pubsub/pubsub.service';
-import { TracingService } from '../tracing.service';
 import { DefaultLogger } from '../utils/default-logger';
+import { TracingService } from '../utils/tracing.service';
+import { DEFAULT_REQRES_OPTION } from './model';
 import { ReqresRootModule } from './reqres-root-module';
-import { ReqResSources } from './reqres-sources';
-import {
-  FEATURE_REQRES,
-  ROOT_REQRES,
-  USER_PROVIDED_REQRES,
-  _FEATURE_REQRES,
-  _ROOT_REQRES,
-} from './reqres-tokens';
-import { ReqresFeatureModule } from './reqrest-feature-module';
-
-export interface ReqresPonseConfig {
-  requestHandlers: Type<any>[];
-  responseInterceptors: Type<any>[];
-  requestInterceptors: Type<any>[];
-}
+import { ReqresSources } from './reqres-sources';
+import { ROOT_REQRES, _ROOT_REQRES } from './reqres-tokens';
 
 @NgModule()
 export class ReqresModule {
   // static forFeature(
-  //   featureReqresConfig: ReqresPonseConfig
+  //   featureReqresConfig: ReqresConfig
   // ): ModuleWithProviders<ReqresFeatureModule> {
   //   return {
   //     ngModule: ReqresFeatureModule,
@@ -55,19 +44,29 @@ export class ReqresModule {
   // }
 
   static forRoot(
-    rootReqresConfig: ReqresPonseConfig
+    rootReqresConfig: ReqresOptions = DEFAULT_REQRES_OPTION
   ): ModuleWithProviders<ReqresRootModule> {
     return {
       ngModule: ReqresRootModule,
       providers: [
         {
           provide: _ROOT_REQRES,
-          useValue: rootReqresConfig.requestHandlers,
+          useValue: [
+            rootReqresConfig.requestHandlers,
+            rootReqresConfig.requestInterceptors,
+            rootReqresConfig.responseInterceptors,
+          ],
         },
         PubsubService,
-        ReqResSources,
+        ReqresSources,
         TracingService,
         { provide: Logger, useClass: DefaultLogger },
+        {
+          provide: ROOT_REQRES,
+          multi: true,
+          useFactory: createReqress,
+          deps: [Injector, _ROOT_REQRES],
+        },
       ],
     };
   }
@@ -75,17 +74,12 @@ export class ReqresModule {
 
 export function createReqress(
   injector: Injector,
-  reqresGroups: Type<any>[][],
-  userProvidedEffectGroups: Type<any>[][]
+  reqresGroups: Type<any>[][]
 ): any[] {
   const mergedReqress: Type<any>[] = [];
 
   for (const reqresGroup of reqresGroups) {
     mergedReqress.push(...reqresGroup);
-  }
-
-  for (const userProvidedReqressGroup of userProvidedEffectGroups) {
-    mergedReqress.push(...userProvidedReqressGroup);
   }
 
   return createReqresInstances(injector, mergedReqress);

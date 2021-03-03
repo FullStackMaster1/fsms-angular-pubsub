@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Logger } from "../contracts/logger";
-
+import { Logger } from '../contracts/logger';
 
 @Injectable()
 export class DefaultLogger implements Logger {

@@ -1,9 +1,13 @@
 // tslint:disable: ban-types
 
-import { ReqResConfig } from '../contracts/req-res-definitions';
+import { ReqresConfig, ReqresOptions } from './req-res-definitions';
 
+export const DEFAULT_REQRES_OPTION: Readonly<Required<ReqresOptions>> = {
+  requestHandlers: [],
+  responseInterceptors: [],
+  requestInterceptors: [],
+};
 
-export const DEFAULT_REQRES_CONFIG: Readonly<Required<ReqResConfig>> = {
+export const DEFAULT_REQRES_META_CONFIG: Readonly<Required<ReqresConfig>> = {
   messages: [],
-  useTracing: true,
 };

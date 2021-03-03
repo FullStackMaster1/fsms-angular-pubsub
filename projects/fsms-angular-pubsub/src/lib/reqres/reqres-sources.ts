@@ -1,23 +1,32 @@
 import { Injectable, OnDestroy } from '@angular/core';
-
-import { IMessageSchema } from '../contracts/message';
+import { Dictionary, ReqresConfig } from './req-res-definitions';
+import { getPubsubDecoratorMetadata } from '../pubsub/pubsub-metadata';
 import { PubsubService } from '../pubsub/pubsub.service';
+import { getDecoratorMetadata } from '../utils';
 
 
 @Injectable()
-export class ReqResSources implements OnDestroy {
+export class ReqresSources implements OnDestroy {
   constructor(private readonly reqresService: PubsubService) {}
 
-  private allReqresInstances = [];
+  private allReqresInstances : Dictionary<any> = [];
+  private allRequestInterceptors = [];
+  private allResponseInterceptors = [];
+  private allRequestHandlers = [];
 
- // private subscriptions: ReqresSubscription[] = [];
+  // private subscriptions: ReqresSubscription[] = [];
 
-  addReqRes(reqresInstance: any): void {
-    this.allReqresInstances.push(reqresInstance);
+  addRequestInterceptor(requestInterceptorInstance: any): void {
+
+    const config = getDecoratorMetadata<any, ReqresConfig>(requestInterceptorInstance, );
+    config.requestHandlers
   }
 
-  addReqResList(rootReqress: any[]) {
-    rootReqress.forEach((reqresInstance) => this.addReqRes(reqresInstance));
+
+  addRequestInterceptorList(requestInterceptorInstance: any[]) {
+    requestInterceptorInstance.forEach((reqresInstance) =>
+      this.addRequestInterceptor(reqresInstance)
+    );
   }
 
   getAllReqresInstances() {
@@ -42,6 +51,6 @@ export class ReqResSources implements OnDestroy {
   }
 
   ngOnDestroy(): void {
- //   this.subscriptions.forEach((s) => s.unsubscribe());
+    //   this.subscriptions.forEach((s) => s.unsubscribe());
   }
 }

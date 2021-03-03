@@ -12,7 +12,7 @@ import {
 import { PubsubSources } from './pubsub-sources';
 import { Logger } from '../contracts/logger';
 import { DefaultLogger } from '../utils/default-logger';
-import { TracingService } from '../tracing.service';
+import { TracingService } from '../utils/tracing.service';
 
 @NgModule()
 export class PubsubModule {
